@@ -1,28 +1,33 @@
 import './App.css';
 import Home from './Home'
 import Header from './Header'
+import Footer from './Footer'
+import CatalogPage from './CatalogPage';
+import { BrowserRouter as Router, Switch,
+Route }
+from "react-router-dom";
 
 function App() {
   return (
 
     // BEM
     <div className="app">
-      <Header />
-      <Home />
+      <Router>
+        <Header />
 
-      {/* Home */}
-        {/* Header */}
+        <Switch>
+          <Route path="/catalog">
+            <CatalogPage />
+          </Route>
+          
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
 
-        {/* Banner */}
-          {/* Search */}
+        <Footer />
 
-        {/* Cards */}
-
-        {/* Footer */}
-      
-      {/* Catalog Page */}
-        {/* Header */}
-        {/* ... */}
+      </Router>
     </div>
   );
 }
