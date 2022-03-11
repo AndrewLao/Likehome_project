@@ -18,7 +18,7 @@ function Header() {
         </div>
 
         <div className='header__right'>
-          <p>Sign In/Login</p>
+          <p>Login/Sign-Up</p>
           <Avatar />
         </div>
     </div>
