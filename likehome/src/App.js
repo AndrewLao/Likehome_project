@@ -3,8 +3,7 @@ import Home from './Home'
 import Header from './Header'
 import Footer from './Footer'
 import CatalogPage from './CatalogPage';
-import { BrowserRouter as Router, Switch,
-Route }
+import { BrowserRouter as Router, Switch, Route }
 from "react-router-dom";
 
 function App() {

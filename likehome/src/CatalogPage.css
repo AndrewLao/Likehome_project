@@ -1,0 +1,18 @@
+.catalogPage__info{
+    padding: 20px;
+}
+
+.catalogPage__info > p {
+    margin-bottom: 10px;
+    font-size: 14;
+}
+
+.catalogPage__info > h1 {
+    margin-bottom: 30px;
+}
+
+.catalogPage__info > button {
+    border-radius: 30px;
+    text-transform: inherit;
+    margin: 5px;
+}
