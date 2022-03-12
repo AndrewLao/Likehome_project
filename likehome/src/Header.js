@@ -7,20 +7,22 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <div className='header'>
+
       <Link to='/'>
         <img className="header__icon"
         src={require('./logo.png')} />
       </Link>
 
-        <div className='header__center'>
-          <input type='text' />
-          <SearchIcon />
-        </div>
 
-        <div className='header__right'>
-          <p>Login/Sign-Up</p>
-          <Avatar />
-        </div>
+      <div className='header__center'>
+        <input type='text' />
+        <SearchIcon />
+      </div>
+
+      <div className='header__right'>
+        <p>Login/Sign-Up</p>
+        <Avatar />
+      </div>
     </div>
   )
 }
