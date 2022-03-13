@@ -20,7 +20,7 @@ function Home() {
     <div className='home'>
       <div className='home-top'>
         <img src="pexels-quark-studio-2507007.jpg" />
-        <p>Welcome</p>
+        <p>WELCOME</p>
         <h1> A perfect stay for everyone </h1>
       </div>
 
