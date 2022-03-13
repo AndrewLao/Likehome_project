@@ -17,7 +17,8 @@ function App() {
     <div className="app">
       <Router>
         <Header />
-            
+
+        <div className="body">    
         <Switch>
 
           <Route path="/login">
@@ -40,6 +41,7 @@ function App() {
             <Home />
           </Route>
         </Switch>
+        </div>
 
         <Footer />
 
