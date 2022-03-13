@@ -9,7 +9,11 @@
 }
 
 .home-top{
+    display:flex;
+    flex-direction:column;
     align-items: center;
+    position:relative;
+
 }
 
 img {
@@ -18,23 +22,24 @@ img {
     width:100%;
 }
 
-.home-top >h1{
-    font-size: 80px;
-    margin-top: -500px;
-    text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.home-top >p {
+    font-size:8vmax;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    position: absolute;
+    margin-top:3%;
 }
 
-.home-top >p {
-    font-size: 32px;
-    margin-top: 8px; 
-    text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.home-top >h1{
+    font-size: 1.5vmax;
+    font-family:Verdana, Geneva, Tahoma, sans-serif ;
+    position: absolute;
+    margin-top:15%;
+
 }
 
 .carousel {
-    padding-top: 400px;
-    padding-bottom: 500px;
+    padding-top: 100px;
+    padding-bottom: 100px;
     position: bottom;
 }
 

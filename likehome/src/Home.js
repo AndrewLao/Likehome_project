@@ -18,11 +18,10 @@ function Home() {
 
   return (
     <div className='home'>
-    
       <div className='home-top'>
         <img src="pexels-quark-studio-2507007.jpg" />
-        <h1> WELCOME </h1>
-        <p>A perfect stay for everyone</p>
+        <p>Welcome</p>
+        <h1> A perfect stay for everyone </h1>
       </div>
 
       <div className = 'carousel'>
