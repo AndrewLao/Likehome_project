@@ -1,6 +1,8 @@
 import React from 'react'
 import './Header.css'
 import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
+import IconButton from '@mui/material/IconButton';
 import { Avatar } from '@mui/material';
 import { Link } from "react-router-dom";
 
@@ -19,9 +21,20 @@ function Header() {
         <SearchIcon />
       </div>
 
-      <div className='header__right'>
-        <p>Login/Sign-Up</p>
-        <Avatar />
+          <div className='header__right'>
+              <IconButton size="small" component={Link} to="/login">
+                   <p>Login</p>
+              </IconButton>
+              <p>/</p>
+              <IconButton size="small" component={Link} to="/signup">
+                  <p>Sign-Up</p>
+              </IconButton>
+              <IconButton component={Link} to="/catalog">
+                  <MenuIcon />
+                </IconButton>
+              <IconButton component={Link} to="/account">
+                  <Avatar />
+               </IconButton>
       </div>
     </div>
   )
