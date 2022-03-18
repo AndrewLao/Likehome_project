@@ -8,8 +8,6 @@
 echo installing 
 cd /home/ubuntu/appdeploy/
 sudo apt-get update
-curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-sudo apt-get install nodejs -y
 
 # # check to make sure the symbolic link for nodejs node exists
 # echo checking for nodejs symlink
@@ -20,9 +18,3 @@ sudo apt-get install nodejs -y
 # else
 #   echo "$file exists and is already a symlink"
 # fi
-
-# install the application using npm
-# we need to traverse to where the application bundle is copied too.
-echo installing application with npm
-cd /home/ubuntu/appdeploy/
-sudo npm install
