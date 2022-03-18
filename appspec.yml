@@ -5,8 +5,8 @@ files:
     destination: /var/www/
 permissions:
   - object: /var/www/
-    owner: root
-    group: root
+    owner: ubuntu
+    group: ubuntu
     mode: 777
 hooks:
   BeforeInstall:
