@@ -2,11 +2,11 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /var/www/
+    destination: /home/ubuntu/appdeploy/
 permissions:
-  - object: /var/www/
-    owner: ubuntu
-    group: ubuntu
+  - object: /home/ubuntu/appdeploy/
+    owner: root
+    group: root
     mode: 777
 hooks:
   BeforeInstall:
