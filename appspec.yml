@@ -3,17 +3,11 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/appdeploy/
-permissions:
-  - object: /home/ubuntu/appdeploy/
-    owner: root
-    group: root
-    mode: 777
+file_exists_behavior: OVERWRITE 
 hooks:
   BeforeInstall:
     - location: scripts/install_dependencies.sh
       timeout: 300
-      runas: root
   ApplicationStart:
     - location: scripts/start_server.sh
       timeout: 300
-      runas: root
