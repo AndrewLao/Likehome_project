@@ -7,9 +7,5 @@ permissions:
   - object: /home/ubuntu/appdeploy/
     owner: ubuntu
     group: ubuntu 
-hooks:
-  BeforeInstall:
-    - location: scripts/install_dependencies.sh
-      timeout: 300
-      runas: root
+
   
