@@ -3,5 +3,5 @@ echo starting server
 
 # here we just use npm to run the build
 cd /home/ubuntu/appdeploy/
-echo building application...
-# sudo npm run build
+echo moving build to server path
+sudo cp /home/ubuntu/appdeploy/likehome/build/* /var/www/likehome/
