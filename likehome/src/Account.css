@@ -1,0 +1,90 @@
+.container{
+    background-color:beige;
+    padding: 1px;
+}
+
+.grid {
+    position: relative;
+    display: grid;
+    grid-template-areas: auto auto auto;
+    margin: 5% 50% 5% 10% ;
+    column-gap: normal;
+}
+
+#profile_picture {
+    width: 10%;
+    grid-column: 1/2;
+    grid-row: 1/2; 
+}
+
+#pic_img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    border: 2px solid black;
+    text-align: center;
+}
+
+.description {
+    grid-column: 2/3;
+    grid-row: 1/2; 
+    padding: 0%;
+} 
+
+#points {
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
+
+#redeem {
+    height: 50px;
+    width: 200px;
+    background-color: Transparent;
+    border: 2px solid black;
+    border-radius: 25px;
+}
+.tab {
+    position: relative;
+    display: grid;
+    grid-template-areas: auto auto auto;
+    background-color: #555;
+    color: white;
+    padding: 14px 16px;
+    font-size: 17px;
+}
+#info {
+    grid-column: 1/2;
+}
+#reserve {
+    grid-column: 2/3;
+}
+#save {
+    grid-column: 3/4;
+}
+/* .tablink {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 25%;
+  } */
+  
+  .tablink:hover {
+    background-color: #777;
+  }
+/*   
+  /* Style the tab content (and add height:100% for full page content) */
+  .tabcontent {
+    color: white;
+    display: none;
+    padding: 100px 20px;
+    height: 100%;
+  } */
+  
+  #information {background-color: red;}
+  #reservations {background-color: green;}
+  #saved {background-color: blue;}
