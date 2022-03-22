@@ -1,0 +1,21 @@
+.loginSignup > button {
+    margin:'20px 0px 0px';
+    border-radius: 30px;
+    color: white;
+    font-weight: bold;
+    background-color: green;   
+}
+
+h2 {
+    margin: 20px 0px 10px;
+}
+
+label {
+}
+
+.loginSignup {
+    width: 500px;
+    margin: auto;
+    text-align: center;    
+}
+
