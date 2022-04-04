@@ -73,17 +73,10 @@
     font-size: 17px;
     width: 25%;
   } */
-<<<<<<< HEAD:likehome/src/Account.css
-/*  
-  .tablink:hover {
-    background-color: #777;
-  }
-=======
 
-.tablink:hover {
+/* .tablink:hover {
   background-color: #777;
-}
->>>>>>> 0592a8df6a88b77f1242c9a7467a4663c0e3206d:likehome/src/Components/Pages/Account.css
+} */
 /*  
   /* Style the tab content (and add height:100% for full page content) 
   .tabcontent {
@@ -96,4 +89,4 @@
   #information {background-color: red;}
   #reservations {background-color: green;}
   #saved {background-color: blue;}
-*/
+
