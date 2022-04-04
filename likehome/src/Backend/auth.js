@@ -59,8 +59,9 @@ export const signup = (fname, lname, email, passwd) => {
   UserPool.signUp(email, passwd, attributeList, null, (err, data) => {
     if (err) {
       console.error(err.message);
+    } else {
+      console.log(data);
     }
-    console.log(data);
   });
 };
 

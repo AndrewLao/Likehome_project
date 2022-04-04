@@ -40,3 +40,7 @@
   width: 15wv;
   margin-right: 15px;
 }
+
+.sadSlash {
+  user-select: none;
+}

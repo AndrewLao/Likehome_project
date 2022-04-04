@@ -18,7 +18,7 @@ function Home() {
   return (
     <div className="home">
       <div className="home-top">
-        <img src="pexels-quark-studio-2507007.jpg" />
+        <img src="pexels-quark-studio-2507007.jpg" alt="" />
 
         <div className="home-top-caption">
           <h1> WELCOME </h1>
@@ -32,63 +32,72 @@ function Home() {
         <Slider {...settings} className="slider">
           <div className="image1">
             <h3>
-              <img src="./places/DJI_0079-1024x820.jpg" />
+              <img src="./places/DJI_0079-1024x820.jpg" alt="" />
               <p>Sovena Kiri, Koh Kood</p>
               <p1>Thailand</p1>
             </h3>
           </div>
           <div className="image2">
             <h3>
-              <img src="./places/anantara_al_jabal_al_akhdar_dianas_point_01_1920x1037.jpg" />
+              <img
+                src="./places/anantara_al_jabal_al_akhdar_dianas_point_01_1920x1037.jpg"
+                alt=""
+              />
               <p>Anantara Al Jabal Al Akhdar Resort</p>
               <p1>Oman</p1>
             </h3>
           </div>
           <div className="image3">
             <h3>
-              <img src="./places/Aman-Venice_Dining-Hero-5.jpg" />
+              <img src="./places/Aman-Venice_Dining-Hero-5.jpg" alt="" />
               <p>Aman Venice</p>
               <p1>Italy</p1>
             </h3>
           </div>
           <div className="image4">
             <h3>
-              <img src="./places/HACIENDA+DE+SAN+ANTONIO_110ft+POOL_15+-+Photography+by+Davis+Gerber.jpg" />
+              <img
+                src="./places/HACIENDA+DE+SAN+ANTONIO_110ft+POOL_15+-+Photography+by+Davis+Gerber.jpg"
+                alt=""
+              />
               <p>Hacienda de San Antonio</p>
               <p1>Mexico</p1>
             </h3>
           </div>
           <div className="image5">
             <h3>
-              <img src="./places/002929-06-Private-Sitout.jpg" />
+              <img src="./places/002929-06-Private-Sitout.jpg" alt="" />
               <p>Taj Lake Palace</p>
               <p1>India</p1>
             </h3>
           </div>
           <div className="image6">
             <h3>
-              <img src="./places/lhorizon-palm-springs-main.jpg" />
+              <img src="./places/lhorizon-palm-springs-main.jpg" alt="" />
               <p>L'Horizon Hotel and Spa</p>
               <p1>United States</p1>
             </h3>
           </div>
           <div className="image7">
             <h3>
-              <img src="./places/LHOTEL_MARRAKECH-Roof-Terrace-05.jpg" />
+              <img src="./places/LHOTEL_MARRAKECH-Roof-Terrace-05.jpg" alt="" />
               <p>L'Hôtel Marrakech</p>
               <p1>Morroco</p1>
             </h3>
           </div>
           <div className="image8">
             <h3>
-              <img src="./places/as-the-sun-goes-down.jpg" />
+              <img src="./places/as-the-sun-goes-down.jpg" alt="" />
               <p>Tierra Atacama</p>
               <p1>Chile</p1>
             </h3>
           </div>
           <div className="image9">
             <h3>
-              <img src="./places/etosoto-formentera-espagne-baleares-exterieur-terrasse.jpg" />
+              <img
+                src="./places/etosoto-formentera-espagne-baleares-exterieur-terrasse.jpg"
+                alt=""
+              />
               <p>Etosoto Villa</p>
               <p1>Spain</p1>
             </h3>

@@ -5,10 +5,14 @@ const Status = () => {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {
-    getSession().then((session) => {
-      console.log("Session: ", session);
-      setStatus(true);
-    });
+    getSession()
+      .then((session) => {
+        console.log("Session: ", session);
+        setStatus(true);
+      })
+      .catch((err) => {
+        console.error("No current session", err);
+      });
   }, []);
   return status;
 };
