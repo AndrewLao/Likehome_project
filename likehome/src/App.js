@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Home from "./Components/Pages/Home";
 import Header from "./Components/Navbar/Header";
@@ -8,10 +8,19 @@ import Account from "./Components/Pages/Account";
 import SignUp from "./Components/Auth/SignUp";
 import CatalogPage from "./Components/Catalog/CatalogPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Status from "./Backend/SessionStatus.js";
-
+import { getSession } from "./Backend/auth.js";
 function App() {
-  const [status, setStatus] = useState(Status());
+  const [status, setStatus] = useState(false);
+  useEffect(() => {
+    getSession()
+      .then((session) => {
+        console.log("its working: ", session);
+        setStatus(true);
+      })
+      .catch((err) => {
+        console.log("no session");
+      });
+  }, []);
 
   return (
     // BEM
