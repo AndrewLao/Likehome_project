@@ -34,6 +34,24 @@ function SignUp() {
       });
   };
 
+  const handleEnterKeyPress = async (e) => {
+    if (e.key === "Enter") {
+      signup(cred.firstName, cred.lastName, cred.email, cred.password)
+      .then((data) => {
+        console.log("Logged in!", data);
+        setValid(true);
+        setErrMsg("");
+        history.push("./home");
+      })
+      .catch((err) => {
+        console.error("Failed to sign up", err);
+        setValid(false);
+        setErrMsg(err.message);
+      });
+    }
+  };
+  
+
   return (
     <div className="loginSignup">
       <Grid align="center">
@@ -75,9 +93,11 @@ function SignUp() {
         type="password"
         variant="outlined"
         onChange={(e) => setCred({ ...cred, password: e.target.value })}
+        onKeyDown={handleEnterKeyPress}
         style={textStyle}
         error={!isValid}
         helperText={errMsg}
+        inputProps={{ minlength:8 }}
         fullWidth
         required
       />

@@ -38,6 +38,28 @@ function Login(props) {
       });
   };
 
+  const handleEnterKeyPress = async (e) => {
+    if (e.key === "Enter") {
+      login(cred.email, cred.password)
+      .then((data) => {
+        console.log("Logged in!", data);
+        setValid(true);
+        setErrMsg("");
+        props.setStatus(true);
+        history.push("./home");
+      })
+      .catch((err) => {
+        console.error("Failed to login", err);
+        setValid(false);
+        if (err.name === "UserNotConfirmedException") {
+          setErrMsg("Email Not Verified");
+        } else {
+          setErrMsg("Incorrect username/password");
+        }
+      });
+    }
+  };
+
   return (
     <div className="loginSignup">
       <Grid align="center">
@@ -62,6 +84,7 @@ function Login(props) {
         error={!isValid}
         helperText={errMsg}
         onChange={(e) => setCred({ ...cred, password: e.target.value })}
+        onKeyDown={handleEnterKeyPress}
         fullWidth
         required
       />
