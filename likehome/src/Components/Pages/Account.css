@@ -1,4 +1,4 @@
-/*
+
 .container{
     background-color:beige;
     padding: 1px;
@@ -62,7 +62,7 @@
 #save {
     grid-column: 3/4;
 }
-/* .tablink {
+.tablink {
     background-color: #555;
     color: white;
     float: left;
@@ -72,13 +72,13 @@
     padding: 14px 16px;
     font-size: 17px;
     width: 25%;
-  } */
+  }
 
-/* .tablink:hover {
+.tablink:hover {
   background-color: #777;
-} */
-/*  
-  /* Style the tab content (and add height:100% for full page content) 
+}
+  
+/* Style the tab content (and add height:100% for full page content)  */
   .tabcontent {
     color: white;
     display: none;

@@ -46,7 +46,7 @@ function Header(props) {
         <IconButton component={Link} to="/catalog">
           <MenuIcon />
         </IconButton>
-        <IconButton component={Link} to="">
+        <IconButton component={Link} to="/account">
           <Avatar />
         </IconButton>
       </div>
