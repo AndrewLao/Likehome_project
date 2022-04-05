@@ -101,6 +101,10 @@ function SignUp() {
         fullWidth
         required
       />
+      <Typography style={textStyle}>
+        {" "}
+        Minimum 8 characters and at least 1 uppercase, 1 lowercase, 1 number, and 1 symbol&nbsp; 
+      </Typography>
       <FormControlLabel
         control={<Checkbox name="checkedB" color="primary" />}
         onChange={(e) => setCred({ ...cred, remember: e.target.checked })}
