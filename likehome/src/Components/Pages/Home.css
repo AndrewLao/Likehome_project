@@ -45,9 +45,10 @@ img {
 }
 
 .carousel {
-  padding-top: 10rem;
-  padding-bottom: 10rem;
-  position: bottom;
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+    overflow-x: hidden;
+    position: bottom;
 }
 
 .carousel > h1 {
