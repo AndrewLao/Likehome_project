@@ -35,6 +35,7 @@ img {
 .carousel {
     padding-top: 400px;
     padding-bottom: 500px;
+    overflow-x: hidden;
     position: bottom;
 }
 
@@ -48,9 +49,9 @@ img {
     color:rgba(128, 128, 128, 0.945);
 }
 
-.slider{
-    padding-top:100px;
-    align-items:center;
+.slider {
+    padding-top: 100px;
+    align-items: center;
 }
 
 .image1 >h3 >p{
