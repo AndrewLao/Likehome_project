@@ -5,7 +5,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import "./LoginSignup.css";
 import { signup } from "../../Backend/auth.js";
 import { useHistory } from "react-router-dom";
-
+import Axios from "axios";
 function SignUp() {
   let history = useHistory();
   const [isValid, setValid] = useState(true);
@@ -22,7 +22,13 @@ function SignUp() {
   const handleSubmit = async (e) => {
     signup(cred.firstName, cred.lastName, cred.email, cred.password)
       .then((data) => {
-        console.log("Logged in!", data);
+        console.log("Signed up", data);
+        Axios.post('http://localhost:3001/create-user', {
+          id: data.userSub, 
+          fname: cred.firstName, 
+          lname: cred.lastName, 
+          email: cred.email
+        });
         setValid(true);
         setErrMsg("");
         history.push("./home");

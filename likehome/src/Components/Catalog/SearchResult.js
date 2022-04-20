@@ -2,7 +2,7 @@ import React from 'react';
 import './SearchResult.css';
 
 function SearchResult(
-   { img, location, title, description, price, total }
+   { img, location, title, description, price, rating }
 ) {
   return (
     <div className='searchResult'>
@@ -17,7 +17,7 @@ function SearchResult(
             <div className='searchResult__infoBottom'>
                 <div className='searchResult__price'>
                     <h2>{price}</h2>
-                    <p>{total}</p>
+                    <p>{rating}</p>
                 </div>
             </div>
             
