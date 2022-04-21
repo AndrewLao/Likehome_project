@@ -1,28 +1,64 @@
 import React from 'react';
 import './SearchResult.css';
+import Collapse from '@mui/material/Collapse';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import IconButton from '@mui/material/IconButton';
+import { styled } from '@mui/material/styles';
 
-function SearchResult(
-   { img, location, title, description, price, rating }
-) {
+function SearchResult( { img, location, title, description, price, rating, facilities, amenities }) 
+{
+    const [expanded, setExpanded] = React.useState(false);
+    const ExpandMore = styled((props) => {
+        const { expand, ...other } = props;
+        return <IconButton {...other} />;
+    })(({ theme, expand }) => ({
+        transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+        duration: theme.transitions.duration.shortest,
+        }),
+    }));
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+      };
   return (
-    <div className='searchResult'>
-        <img src={img} alt="" />
-        <div className='searchResult__info'>
-            <div className='searchResult__infoTop'>
-                <p>{location}</p>
-                <h3>{title}</h3>
-                <p>____</p>
-                <p>{description}</p>
+        <div className='searchResult'>
+            <img src={img} alt="" />
+            <div className='searchResult__info'>
+                <div className='searchResult__infoLeft'>
+                    <p>{location}</p>
+                    <h3>{title}</h3>
+                    <p>____</p>
+                    <p>{description}</p>
+                    <ExpandMore
+                        expand={expanded}
+                        onClick={handleExpandClick}
+                        aria-expanded={expanded}
+                        aria-label="show more"
+                        >
+                        <ExpandMoreIcon />
+                    </ExpandMore>
+                    <Collapse in={expanded} timeout="auto" unmountOnExit style={{
+                        marginTop: 10,
+                        fontSize: 13,
+                        color: "grey"
+                    }}>
+                        {facilities === "" ? <></> : <p>{"Facilities: " + facilities}</p>}
+                        <br />
+                        {amenities === "" ? <></> : <p>{"Amenities: " + amenities}</p>}   
+                    </Collapse>
+
+                    
+                </div> 
             </div>
-            <div className='searchResult__infoBottom'>
+            <div className='searchResult__infoRight'>
                 <div className='searchResult__price'>
-                    <h2>{price}</h2>
-                    <p>{rating}</p>
+                    <h3>{"$"+price+"/night"}</h3>
+                    <p>{"Rating: "+rating+"/10"}</p>
                 </div>
             </div>
-            
         </div>
-    </div>
   )
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -8,10 +8,28 @@ import { Link } from "react-router-dom";
 import { logout } from "../../Backend/auth.js";
 
 function Header(props) {
+  const [search, setSearch] = useState("");
   const handleLogout = () => {
     logout();
     props.setStatus(false);
   };
+
+  // handles searching by price, location, and rating
+  const handleSearch = () => {
+    if (search === "") {
+      props.setSorted(props.hotels);
+    } else {
+      props.setSorted(props.hotels.filter( (hotel) => 
+        ((hotel.addr + " " + hotel.details + " " + hotel.hotelname)
+          .toLowerCase()
+            .includes(search.toLowerCase())
+        )));
+    }
+  }
+
+  useEffect(() => {
+    handleSearch();
+  }, [search])
 
   return (
     <div className="header">
@@ -20,7 +38,7 @@ function Header(props) {
       </Link>
 
       <div className="header__center">
-        <input type="text" />
+        <input type="text" onChange={(e) => setSearch(e.target.value)}/>
         <SearchIcon />
       </div>
 
@@ -46,9 +64,20 @@ function Header(props) {
         <IconButton component={Link} to="/catalog">
           <MenuIcon />
         </IconButton>
-        <IconButton component={Link} to="/account">
-          <Avatar />
-        </IconButton>
+        {props.status ? (
+          <>
+            <IconButton component={Link} to="/account">
+              <Avatar />
+            </IconButton>
+          </>
+        ) : (
+          <>
+            <IconButton>
+              <Avatar />
+            </IconButton>
+          </>
+        )}
+        
       </div>
     </div>
   );

@@ -89,7 +89,6 @@ export const getSession = async () => {
 export const logout = () => {
   const user = UserPool.getCurrentUser();
   if (user) {
-    console.log("Logging out");
     user.signOut();
   }
 };

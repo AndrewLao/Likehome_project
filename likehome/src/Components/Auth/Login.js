@@ -21,14 +21,12 @@ function Login(props) {
   const handleSubmit = async (e) => {
     login(cred.email, cred.password)
       .then((data) => {
-        console.log("Logged in!", data);
         setValid(true);
         setErrMsg("");
         props.setStatus(true);
         history.push("./home");
       })
       .catch((err) => {
-        console.error("Failed to login", err);
         setValid(false);
         if (err.name === "UserNotConfirmedException") {
           setErrMsg("Email Not Verified");
@@ -42,14 +40,12 @@ function Login(props) {
     if (e.key === "Enter") {
       login(cred.email, cred.password)
       .then((data) => {
-        console.log("Logged in!", data);
         setValid(true);
         setErrMsg("");
         props.setStatus(true);
         history.push("./home");
       })
       .catch((err) => {
-        console.error("Failed to login", err);
         setValid(false);
         if (err.name === "UserNotConfirmedException") {
           setErrMsg("Email Not Verified");

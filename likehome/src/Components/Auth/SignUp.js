@@ -22,7 +22,6 @@ function SignUp() {
   const handleSubmit = async (e) => {
     signup(cred.firstName, cred.lastName, cred.email, cred.password)
       .then((data) => {
-        console.log("Signed up", data);
         Axios.post('http://localhost:3001/create-user', {
           id: data.userSub, 
           fname: cred.firstName, 
@@ -34,7 +33,6 @@ function SignUp() {
         history.push("./home");
       })
       .catch((err) => {
-        console.error("Failed to sign up", err);
         setValid(false);
         setErrMsg(err.message);
       });
@@ -44,13 +42,11 @@ function SignUp() {
     if (e.key === "Enter") {
       signup(cred.firstName, cred.lastName, cred.email, cred.password)
       .then((data) => {
-        console.log("Logged in!", data);
         setValid(true);
         setErrMsg("");
         history.push("./home");
       })
       .catch((err) => {
-        console.error("Failed to sign up", err);
         setValid(false);
         setErrMsg(err.message);
       });

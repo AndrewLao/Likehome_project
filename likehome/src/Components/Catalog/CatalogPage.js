@@ -7,7 +7,7 @@ function CatalogPage(props) {
   return (
     <div className='catalogPage'>
         <div className='catalogPage__info'>
-        <p> 30 stays · 11 March to 13 March · 2 Guests</p>
+        <p> {props.hotels.length} Stays · {new Date().toLocaleDateString()} · Many Guests :)</p>
         <h1>Stays nearby</h1>
         <Button variant="outlined">Cancellation Flexibility</Button>
         <Button variant="outlined">Type of Place</Button>
@@ -22,8 +22,10 @@ function CatalogPage(props) {
                 location={tile.addr}
                 title={tile.hotelname}
                 description={tile.details}
-                price={"$"+tile.price+" per night"}
-                rating={"Rating: "+tile.ratingVal+"/10"}
+                facilities={tile.facilities}
+                amenities={tile.amenities}
+                price={tile.price}
+                rating={tile.ratingVal}
             />)
         })}
     </div>

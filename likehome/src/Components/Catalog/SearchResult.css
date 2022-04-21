@@ -26,32 +26,42 @@
 
 }
 
-.searchResult__infoTop {
-    width: 40vw;
+.searchResult__infoLeft {
+    width: 64vw;
+    margin-right: 4vw;
 }
 
-.searchResult__infoTop > h3 {
+.searchResult__infoLeft > h3 {
     font-weight: 300;
     margin-top: 10px;
 }
 
-.searchResult__infoTop > p {
+.searchResult__infoLeft > p {
     margin-top: 10px;
     font-size: 13px;
     color: grey;
 }
+/* .Collapse {
+    margin-top: 10px;
+    font-size: 13px;
+    color: grey;
+} */
 
-.searchResult__infoBottom {
+.searchResult__infoRight {
     display: flex;
-    justify-content: space-between;
+    justify-content: right;
 }
 
-.searchResult__price > p {
+/* .searchResult__price > p {
     text-align: right;
-}
+} */
+    
 
 .searchResult__price {
-    position: absolute;
-    bottom: 20px;
-    right: 30px;
+    display: inline-block;
+    align-self: flex-end;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 14px;
+    color: dark-grey;
 }

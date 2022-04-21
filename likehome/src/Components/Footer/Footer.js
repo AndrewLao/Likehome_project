@@ -4,7 +4,7 @@ import './Footer.css'
 function Footer() {
   return (
     <div className='footer'>
-        <p>© 2022 Zeta    No rights reserved - class project for SJSU</p>
+        <p>&copy; {new Date().getFullYear()}         No rights reserved -Team Zeta class project for SJSU</p>
     </div>
   )
 }

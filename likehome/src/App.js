@@ -13,22 +13,21 @@ import Axios from "axios";
 function App() {
   const [status, setStatus] = useState(false);
   const [sorted, setSorted] = useState([]);
-  var hotels = [];
+  const [hotels, setHotels] = useState([]);
   useEffect(() => {
     getSession()
       .then((session) => {
-        console.log("its working: ", session);
         setStatus(true);
       })
       .catch((err) => {
-        console.log("no session");
       });
-      Axios.get('http://localhost:3001/get-hotels').then((res) => {
-            hotels = res.data;
-            setSorted(res.data);
-        });
+    // get data on page load
+    Axios.get('http://localhost:3001/get-hotels').then((res) => {
+        setHotels(res.data);
+        setSorted(res.data);
+    });
   }, []);
-
+  
   return (
     // BEM
     <div className="app">
