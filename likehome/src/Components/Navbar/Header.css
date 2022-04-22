@@ -44,3 +44,54 @@
 .sadSlash {
   user-select: none;
 }
+
+.header__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+  width: 100%;
+}
+
+.header__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.header__calendar {
+  margin-left:auto;
+  margin-right: auto;
+}
+
+.header__guests {
+  display: flex;
+  align-items: center;
+  border-bottom: 1;
+  border-bottom-width: 10px;
+  border-bottom-color: black;
+  margin-bottom: 20px;
+}
+.header__calendarGuests {
+  flex-grow: 1;
+  font: bold;
+}
+
+.guest__selector {
+  width: 40px;
+  padding-left: 2px;
+  font-size: large;
+  outline: none;
+}
+
+.button__box{
+  display: flex;
+}
+
+.calendar__buttons{
+  flex-grow: 1;
+}
