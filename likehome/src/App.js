@@ -10,10 +10,18 @@ import CatalogPage from "./Components/Catalog/CatalogPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { getSession } from "./Backend/auth.js";
 import Axios from "axios";
+
 function App() {
   const [status, setStatus] = useState(false);
   const [sorted, setSorted] = useState([]);
   const [hotels, setHotels] = useState([]);
+  const [range, setRange] = useState({
+    startDate: new Date().toLocaleDateString(),
+    endDate: new Date().toLocaleDateString(),
+    guests: 1
+  });
+
+  
   useEffect(() => {
     getSession()
       .then((session) => {
@@ -38,6 +46,8 @@ function App() {
           hotels={hotels} 
           sorted={sorted} 
           setSorted={setSorted}
+          range={range}
+          setRange={setRange}
         />
 
         <Switch>
@@ -54,7 +64,7 @@ function App() {
           </Route>
 
           <Route path="/catalog">
-            <CatalogPage hotels={sorted}/>
+            <CatalogPage hotels={sorted} range={range} />
           </Route>
 
           <Route path="/">

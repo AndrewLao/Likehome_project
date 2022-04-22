@@ -11,8 +11,10 @@
 
 .header__icon {
   object-fit: contain;
+  width:auto;
   height: 100px;
-  margin-left: 20px;
+  margin-left: 30px;
+  cursor: pointer;
 }
 
 .header__center {
@@ -30,7 +32,9 @@
   border: none;
   padding: 10px;
   outline-width: 0;
-  /* width: 250px; */
+  width: 400px;
+  font-size: large;
+  outline: none;
 }
 
 .header__right {
@@ -90,8 +94,10 @@
 
 .button__box{
   display: flex;
+  margin-bottom: 20px;
 }
 
 .calendar__buttons{
   flex-grow: 1;
+
 }

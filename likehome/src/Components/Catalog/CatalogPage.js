@@ -7,7 +7,7 @@ function CatalogPage(props) {
   return (
     <div className='catalogPage'>
         <div className='catalogPage__info'>
-        <p> {props.hotels.length} Stays · {new Date().toLocaleDateString()} · Many Guests 😀</p>
+        <p> {props.hotels.length} Stays · {props.range.startDate + " to " + props.range.endDate} · {props.range.guests} Guests 😀</p>
         <h1>Stays nearby</h1>
         <Button variant="outlined">Cancellation Flexibility</Button>
         <Button variant="outlined">Type of Place</Button>
