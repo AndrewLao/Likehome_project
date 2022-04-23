@@ -10,6 +10,8 @@ import CatalogPage from "./Components/Catalog/CatalogPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { getSession } from "./Backend/auth.js";
 import Axios from "axios";
+import StripeContainer from './Components/Pages/PaymentForm/StripeContainer';
+import ThankYou from './Components/Pages/ThankYou';
 
 function App() {
 
@@ -70,6 +72,14 @@ function App() {
 
           <Route path="/catalog">
             <CatalogPage hotels={sorted} range={range} />
+          </Route>
+
+          <Route path="/payment-form">
+            <StripeContainer />
+          </Route>
+
+          <Route path="/thank-you">
+            <ThankYou />
           </Route>
 
           <Route path="/">
