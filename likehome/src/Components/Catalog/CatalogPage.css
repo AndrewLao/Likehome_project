@@ -1,6 +1,6 @@
 .catalogPage__info{
-    padding: 20px;
-    margin-left: 2vh;
+    padding: 10px;
+    margin-left: 30px;
 }
 
 .catalogPage__info > p {
@@ -12,12 +12,19 @@
     margin-bottom: 30px;
 }
 
-.catalogPage__info > button {
-    border-radius: 30px;
-    text-transform: inherit;
-    margin: 5px;
-}
-
 .catalogPage {
     margin-bottom: 70px;
 }
+
+.catalogPage__sortFilter{
+    display: flex;
+    margin-left: 40px;
+}
+
+.catalogPage__sortFilter > p {
+    height: 100px;
+    line-height: 50px;
+    text-align: center;
+}
+
+
