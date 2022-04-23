@@ -37,3 +37,7 @@ yarn-error.log*
 *.vsix
 
 .vs/
+
+node_modules
+
+.env
