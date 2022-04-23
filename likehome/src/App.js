@@ -40,6 +40,7 @@ function App() {
     // BEM
     <div className="app">
       <Router>
+        {/*PASS EVERYTHING INTO HEADER DONT KNOW HOW ELSE TO DO THIS*/}
         <Header 
           status={status} 
           setStatus={setStatus} 
