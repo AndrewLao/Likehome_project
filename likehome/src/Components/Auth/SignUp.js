@@ -6,6 +6,8 @@ import "./LoginSignup.css";
 import { signup } from "../../Backend/auth.js";
 import { useHistory } from "react-router-dom";
 import Axios from "axios";
+
+// handles signup with congnito
 function SignUp() {
   let history = useHistory();
   const [isValid, setValid] = useState(true);
@@ -19,6 +21,8 @@ function SignUp() {
   });
   const textStyle = { margin: "10px 0px 0px" };
 
+  // handles onSubmit
+  // adds user to db
   const handleSubmit = async (e) => {
     signup(cred.firstName, cred.lastName, cred.email, cred.password)
       .then((data) => {
@@ -38,6 +42,7 @@ function SignUp() {
       });
   };
 
+  // enables enter key submit
   const handleEnterKeyPress = async (e) => {
     if (e.key === "Enter") {
       signup(cred.firstName, cred.lastName, cred.email, cred.password)

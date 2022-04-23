@@ -33,7 +33,7 @@ function Header(props) {
         )));
     }
   }
-
+  // updates search every time search string changes
   useEffect(() => {
     handleSearch();
   }, [search])
@@ -44,7 +44,6 @@ function Header(props) {
     const [endDate, setEndDate] = useState(new Date());
     const [noOfGuests, setNoOfGuests] = useState(1);  // Default guests number is 1
 
-  
     const handleSelect = (ranges) => {
       setStartDate(ranges.selection.startDate);    //Updating local state of start date
       setEndDate(ranges.selection.endDate);

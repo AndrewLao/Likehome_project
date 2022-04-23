@@ -25,7 +25,7 @@ function SearchResult( { img, location, title, description, price, rating, facil
         setExpanded(!expanded);
     };
 
-  return (
+    return (
         <div className='searchResult'>
             <img src={img} alt="" />
             <div className='searchResult__info'>

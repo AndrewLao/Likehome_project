@@ -36,6 +36,7 @@ function Login(props) {
       });
   };
 
+  // enable enter key for submit
   const handleEnterKeyPress = async (e) => {
     if (e.key === "Enter") {
       login(cred.email, cred.password)
@@ -60,6 +61,7 @@ function Login(props) {
     <div className="loginSignup">
       <Grid align="center">
         <h2>Login</h2>
+      {/* form for login */}
       </Grid>
       <TextField
         label="Email Address"

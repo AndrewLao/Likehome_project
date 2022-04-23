@@ -14,16 +14,18 @@ import Axios from "axios";
 function App() {
 
   // use states for global application variables
-  const [status, setStatus] = useState(false);
-  const [sorted, setSorted] = useState([]);
-  const [hotels, setHotels] = useState([]);
-  const [range, setRange] = useState({
+  const [status, setStatus] = useState(false); // status = login status True = logged in
+  const [sorted, setSorted] = useState([]);    // sorted = array of hotels passed into all parts where hotels are not constant i.e. search
+  const [hotels, setHotels] = useState([]);    // single source of truth for hotels
+  const [range, setRange] = useState({         // calendar date ranges and guest number
     startDate: new Date().toLocaleDateString(),
     endDate: new Date().toLocaleDateString(),
     guests: 1
   });
-
   
+  // every time the page reloads run this
+  // get whether or not the user is logged in or not
+  // get all hotels from the db and set it to both hotels and sorted
   useEffect(() => {
     getSession()
       .then((session) => {

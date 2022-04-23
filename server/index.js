@@ -4,9 +4,10 @@ const app = express();
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
 
-// middleware
+// middleware json and bodyparser for parsing input data
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
+// cors for linking 2 URLs 
 app.use(cors(
     {
         origin: 'http://localhost:3000'
@@ -85,6 +86,7 @@ app.get('/get-user', (req, res) => {
     });
 })
 
+// default server port 3001
 app.listen(3001, () =>{
     console.log("listening on 3001");
 });
