@@ -38,6 +38,7 @@ function Header(props) {
     handleSearch();
   }, [search])
 
+    //  Attributes for calendar
     const history = useHistory();
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
@@ -50,8 +51,9 @@ function Header(props) {
       props.setRange({startDate: ranges.selection.startDate.toLocaleDateString(), 
         endDate: ranges.selection.endDate.toLocaleDateString(), guests: noOfGuests})
     }
-  
-    const resetInput = () => {  // Hitting the cancel putting erases search input
+    
+    // Hitting the cancel putting erases search input
+    const resetInput = () => {  
       setSearch("");
       setCalendarOpen(false);
     }
@@ -62,13 +64,7 @@ function Header(props) {
         endDate: endDate.toLocaleDateString(), guests: num});
     }
 
-    // function useQuery() {
-    //   const { finding } = useLocation();
-    //   return React.useMemo(() => new URLSearchParams(search), [search]);
-    // }
-
-    // let query = useQuery();
-
+    //  Function for hitting the search bar to move to catalog page
     const searching = () => {
       history.push({
         pathname: '/catalog',
@@ -76,6 +72,7 @@ function Header(props) {
       setCalendarOpen(false);
     };
 
+    //  Range for calendar
     const selectionRange = {
       startDate: startDate,
       endDate: endDate,

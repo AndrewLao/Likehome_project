@@ -12,6 +12,8 @@ import { getSession } from "./Backend/auth.js";
 import Axios from "axios";
 
 function App() {
+
+  // use states for global application variables
   const [status, setStatus] = useState(false);
   const [sorted, setSorted] = useState([]);
   const [hotels, setHotels] = useState([]);

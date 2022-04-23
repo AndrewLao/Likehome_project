@@ -17,7 +17,7 @@ function CatalogPage(props) {
       setSort(event.target.value);
     };
 
-    // Filter Price
+    // Price Filter Functions Start
     function valuetext(value) {
       return `${value}°C`;
     }
@@ -35,8 +35,9 @@ function CatalogPage(props) {
         label: '$3000'
       },
     ];
+    // Price Filter Functions End
 
-    // Filter Ratings
+    // Ratings Filter Functions Start
     function valuetext2(value) {
       return `{value2}°C`;
     }
@@ -54,15 +55,23 @@ function CatalogPage(props) {
         label: '10'
       },
     ];
+    // Ratings Filter Functions End
 
   return (
     <div className='catalogPage'>
+
+      {/* Catalog Page Info Start */}
       <div className='catalogPage__info'>
       <p> {props.hotels.length} Stays · {props.range.startDate + " to " + props.range.endDate} · {props.range.guests} Guests 😀</p>
       <h1>Stays nearby</h1>
       </div>
-    
+      {/* Catalog Page Info End */}
+
+
+      {/* Sort and Filter Div Start */}
       <div className='catalogPage__sortFilter'>
+
+          {/* Sort Box Start */}
           <Box component="div" sx={{display: 'inline-block', paddingRight: 5, minWidth: 200}}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
@@ -83,9 +92,11 @@ function CatalogPage(props) {
               </Select>
             </FormControl>
           </Box>
-        
+          {/* Sort Box End */}
+
           <p>Price:</p>
 
+          {/* Price Filter Start */}
           <Box component="div" sx={{ display: 'inline-block', width: 250, paddingLeft: 2, paddingRight: 6, paddingUp: 10}}>
             <Slider
               getAriaLabel={() => 'Price range'}
@@ -100,9 +111,11 @@ function CatalogPage(props) {
               valueLabelFormat={(x) => "$"+x}
             />
           </Box>
+          {/* Price Filter End */}
 
           <p>Ratings:</p>
 
+          {/* Ratings Filter Start */}
           <Box component="div" sx={{ display: 'inline-block', width: 150, paddingLeft: 2, paddingRight: 4, paddingUp: 10}}>
             <Slider
               getAriaLabel={() => 'Ratings'}
@@ -116,8 +129,9 @@ function CatalogPage(props) {
               valueLabelFormat={(x) => ""+x}
             />
           </Box>
+          {/* Ratings Filter End */}
          </div>
-
+        {/* Sort and Filter Div End */}
 
         {props.hotels.map((tile) => {
             return (
