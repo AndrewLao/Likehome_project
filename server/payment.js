@@ -4,7 +4,6 @@ const app = express()
 const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST)
 const bodyParser = require("body-parser")
 const cors = require("cors")
-const { v4 } = require('uuid');
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
