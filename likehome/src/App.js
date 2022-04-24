@@ -10,7 +10,7 @@ import CatalogPage from "./Components/Catalog/CatalogPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { getSession } from "./Backend/auth.js";
 import Axios from "axios";
-import StripeContainer from './Components/Pages/PaymentForm/StripeContainer';
+import StripeContainer from './Components/PaymentForm/StripeContainer';
 import ThankYou from './Components/Pages/ThankYou';
 
 function App() {
