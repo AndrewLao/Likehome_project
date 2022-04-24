@@ -83,8 +83,8 @@ function Reservation() {
           </div>
           
           <div className="price_right">
-            <br/>
-            <br/>
+            <p4> </p4>
+            <p4> </p4>
             <p4><u>$50.00</u></p4>
             <p4><u>$55.00</u> </p4>
             <p4><u>$591</u></p4>
