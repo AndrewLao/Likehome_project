@@ -1,12 +1,15 @@
+require("dotenv").config({ path: __dirname + '/.env' });
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
 
-// middleware
+// middleware json and bodyparser for parsing input data
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
+// cors for linking 2 URLs 
 app.use(cors(
     {
         origin: 'http://localhost:3000'
@@ -83,8 +86,44 @@ app.get('/get-user', (req, res) => {
             res.send(result);
         }
     });
+});
+
+app.post('/customer', async (req, res) => {
+    const customer = await stripe.customers.create({
+        name: 'John Doe',
+    })
+    return res.send({ customer_id: customer.id });
+});
+
+app.post("/payment", cors(), async (req, res) => {
+	let { amount, customer_id } = req.body;
+
+    console.log(amount);
+	try {
+		const payment = await stripe.paymentIntents.create({
+			amount,
+			currency: "USD",
+			description: "LikeHome",
+            customer: customer_id,
+            // payment_method: id,
+			// confirm: true
+		})
+		console.log("Payment", payment)
+		res.json({
+            clientSecret: payment.client_secret,
+			message: "Payment successful",
+			success: true
+		})
+	} catch (error) {
+		console.log("Error", error)
+		res.json({
+			message: "Payment failed",
+			success: false
+		})
+	}
 })
 
+// default server port 3001
 app.listen(3001, () =>{
     console.log("listening on 3001");
 });

@@ -8,6 +8,8 @@ import { styled } from '@mui/material/styles';
 function SearchResult( { img, location, title, description, price, rating, facilities, amenities }) 
 {
     const [expanded, setExpanded] = React.useState(false);
+    
+    // expand more button
     const ExpandMore = styled((props) => {
         const { expand, ...other } = props;
         return <IconButton {...other} />;
@@ -18,11 +20,12 @@ function SearchResult( { img, location, title, description, price, rating, facil
         duration: theme.transitions.duration.shortest,
         }),
     }));
-
+    // activate expand more button
     const handleExpandClick = () => {
         setExpanded(!expanded);
-      };
-  return (
+    };
+
+    return (
         <div className='searchResult'>
             <img src={img} alt="" />
             <div className='searchResult__info'>
@@ -31,6 +34,7 @@ function SearchResult( { img, location, title, description, price, rating, facil
                     <h3>{title}</h3>
                     <p>____</p>
                     <p>{description}</p>
+                    {/* add expand more for facilities and ammenities */}
                     <ExpandMore
                         expand={expanded}
                         onClick={handleExpandClick}
@@ -52,6 +56,7 @@ function SearchResult( { img, location, title, description, price, rating, facil
                     
                 </div> 
             </div>
+            {/* Right portion of info card */}
             <div className='searchResult__infoRight'>
                 <div className='searchResult__price'>
                     <h3>{"$"+price+"/night"}</h3>
