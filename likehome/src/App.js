@@ -7,6 +7,7 @@ import Login from "./Components/Auth/Login";
 import Account from "./Components/Pages/Account";
 import SignUp from "./Components/Auth/SignUp";
 import CatalogPage from "./Components/Catalog/CatalogPage";
+import ReservationPage from "./Components/Pages/ReservationPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { getSession } from "./Backend/auth.js";
 import Axios from "axios";
@@ -80,6 +81,10 @@ function App() {
 
           <Route path="/thank-you">
             <ThankYou />
+          </Route>
+
+          <Route path="/reservation">
+            <ReservationPage />
           </Route>
 
           <Route path="/">
