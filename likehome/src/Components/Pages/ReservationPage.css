@@ -1,0 +1,121 @@
+.reservation_page{
+    margin-left:250px;
+    margin-right:250px;
+    margin-top:20px;
+    margin-bottom:50px;
+
+}
+
+.reservation_review_info {
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.reservation_top{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top:20px;
+    align-items:center;
+}
+
+.reservation_top_left{
+    width: 64vw;
+    margin-right:20px;
+}
+
+.reservation_top_left > img {
+    border-radius: 30px;
+    height: 380px;
+    width: 480px;
+    overflow: hidden;
+}
+
+.reservation_top_right{
+    display:flex;
+    flex-direction:column;
+    justify-content:right;
+    align-items:center;
+    width:64vw;
+    margin-bottom:40px;
+}
+   
+
+.reservation_top_right > h2{
+    margin-right:80px;
+    padding-bottom:20px;
+}
+
+.reservation_top_right > p6{
+    padding-top:40px;
+
+}
+
+.reservation_page >p3 {
+    display:flex;
+    color:lightgrey;
+    width:5px;
+    padding-top: 60px;
+    padding-bottom:60px;
+}
+
+.reservation_details{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:30px;
+}
+
+
+p4 {
+    padding-top: 50px;
+}
+
+p7 {
+    padding-bottom: 20px;
+    padding-top:60px;
+}
+
+
+
+.reservation_review{
+    display:flex;
+    flex-direction:row;
+    margin-bottom:30px;
+    align-items:center;
+}
+
+.review_left{
+    display:flex;
+    flex-direction:column;
+    padding-right:50px;
+}
+
+.review_right{
+    display:flex;
+    flex-direction: column;
+    padding-left:50px;
+    text-decoration: underline;
+    padding-top:5px;
+}
+
+
+.reservation_price{
+    display:flex;
+    flex-direction:row;
+    margin-bottom:30px;
+    justify-content: space-between;
+}
+
+.price_left{
+    display:flex;
+    flex-direction:column;
+    
+}
+
+.price_right{
+    display:flex;
+    flex-direction: column;
+    padding-top:80px;
+    justify-content: flex-end;
+}
