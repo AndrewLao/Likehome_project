@@ -4,11 +4,7 @@
     margin: 20px;
     padding: 20px;
     border-bottom: 1px solid lightgrey;
-    cursor: pointer;
-}
-
-.searchResult:hover {
-    opacity: 0.8;
+    
 }
 
 .searchResult > img {
@@ -41,27 +37,18 @@
     font-size: 13px;
     color: grey;
 }
-/* .Collapse {
-    margin-top: 10px;
-    font-size: 13px;
-    color: grey;
-} */
-
-.searchResult__infoRight {
-    display: flex;
-    justify-content: right;
-}
-
-/* .searchResult__price > p {
-    text-align: right;
-} */
-    
 
 .searchResult__price {
+    justify-content:bottom;
     display: inline-block;
     align-self: flex-end;
     text-align: center;
     font-size: 16px;
     margin-bottom: 14px;
     color: dark-grey;
+}
+
+.searchResult__reserve {
+    justify-content: top;
+    padding-bottom: 150px;
 }

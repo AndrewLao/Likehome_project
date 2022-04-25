@@ -4,6 +4,8 @@ import Collapse from '@mui/material/Collapse';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
+import { Button } from '@mui/material';
+import { useHistory } from "react-router-dom";
 
 function SearchResult( { img, location, title, description, price, rating, facilities, amenities }) 
 {
@@ -24,6 +26,14 @@ function SearchResult( { img, location, title, description, price, rating, facil
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
+    const history = useHistory();
+
+    const reserving = () => {
+        history.push({
+          pathname: '/reservation',
+        });
+      };
 
     return (
         <div className='searchResult'>
@@ -56,8 +66,14 @@ function SearchResult( { img, location, title, description, price, rating, facil
                     
                 </div> 
             </div>
+
+            
             {/* Right portion of info card */}
-            <div className='searchResult__infoRight'>
+            <div>
+                <div className='searchResult__reserve'> 
+                <Button variant="contained" onClick={reserving}>Reserve</Button>
+                </div>
+            
                 <div className='searchResult__price'>
                     <h3>{"$"+price+"/night"}</h3>
                     <p>{"Rating: "+rating+"/10"}</p>
