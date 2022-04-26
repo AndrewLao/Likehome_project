@@ -1,70 +1,89 @@
-import React from 'react'
+import React from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Divider from '@mui/material/Divider';
 import './Account.css';
+
+function createData(dates, resID, hotel, guests, total){
+    return { dates, resID, hotel, guests, total };
+}
+
+// to add to reservations
+function addToRows(dates, resID, hotel, guests, total){
+    var data = createData(dates, resID, hotel, guests, total);
+    rows.push(data);
+}
+
+var rows = [
+    createData('May 23, 2022 -> May 30, 2022 ', 12932, 'Hilton By the Beach' , 3, 1098.82),
+    createData('June 17, 2022 -> June 23, 2022 ', 19234, 'Sheraton Hotel' , 2, 756.24),
+    createData('Aug 4, 2022 -> Aug 10, 2022 ', 27401,'Marriot' , 2, 2038.67),
+    createData('Sept 21, 2022 -> Sept 26, 2022 ', 29012,'Wyndham Hotel' , 4, 672.90),
+];
+
+
 function Account() {
     return (
         <div>
-            <div class="container">
-                <div class="grid">
-                    <div id="profile_picture">
-                        <div id="pic_img">
-                            <p> Picture </p>
-                        </div>
-                    </div>
-                    <div class="description">
-                        <h1 class = "text" id="welcome"> Welcome </h1>
-                        <p class = "text" id="username" > Zeta </p>
-
-                        <h2 class = "text" id="points">  You have xxx points. </h2>
-                        <button type="button" id="redeem"> Redeem Now </button>
-                    </div>
+            <div class="title">
+                <h1 class = "text" id="welcome"> Welcome </h1>
+                <div class='info'>
+                    <h3 class = "text" id="username" > Name </h3>
+                    <Divider/>
+                    <h4 class='name'> Team Zeta </h4>
+                </div>
+                <div class='info'>
+                    <h3 class = "text" id="mail">  Email </h3>
+                    <Divider/>
+                    <h4 class='email'> zetalikehome@mail.com </h4>
+                </div>
+                <div class='info'>
+                    <h3 class = "text" id="points">  Points </h3>
+                    <Divider/>
+                    <h4 class='email'> 72902 points </h4>
                 </div>
             </div>
-            <div class="slides">
-                <div class="tab">
-                    <button id ="info" class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen">Account Information</button>
-                    <button id="reserve "class="tablink" onclick="openPage('Home', this, 'red')">Your Reservations</button>
-                    <button id="save" class="tablink" onclick="openPage('Contact', this, 'blue')">Your Saved Places</button>
-                </div>
-                <div id="information" class="tabcontent">
-                    <h3>Account Information</h3>
-                    <p>Get in touch, or swing by for a cup of coffee.</p>
-                </div>
-                <div id="reservations" class="tabcontent">
-                    <h3>Your Reservations</h3>
-                    <p>Home is where the heart is..</p>
-                </div>
-
-                <div id="saved" class="tabcontent">
-                    <h3>Your Saved Places</h3>
-                    <p>Some news this fine day!</p>
-                </div>
+            <div class="reservations">
+                <h1 class = "text" id="reserve"> Your Reservations </h1>
+                <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Date</TableCell>
+                            <TableCell align="right">Reservation ID</TableCell>
+                            <TableCell align="right">Hotel</TableCell>
+                            <TableCell align="right">Guests</TableCell>
+                            <TableCell align="right">Total&nbsp;($)</TableCell>
+                        </TableRow>
+                </TableHead>
+                <TableBody>
+                    {rows.map((row) => (
+                        <TableRow
+                        key={row.dates}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                            <TableCell component="th" scope="row">
+                                {row.dates}
+                            </TableCell>
+                            <TableCell align="right">{row.resID}</TableCell>
+                            <TableCell align="right">{row.hotel}</TableCell>
+                            <TableCell align="right">{row.guests}</TableCell>
+                            <TableCell align="right">{row.total}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+      </Table>
+    </TableContainer>
             </div>
+            
         </div>
     );
 
-    function openPage(pageName, elmnt, color) {
-        // Hide all elements with class="tabcontent" by default */
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
-        }
-
-        // Remove the background color of all tablinks/buttons
-        tablinks = document.getElementsByClassName("tablink");
-        for (i = 0; i < tablinks.length; i++) {
-          tablinks[i].style.backgroundColor = "";
-        }
-
-        // Show the specific tab content
-        document.getElementById(pageName).style.display = "block";
-
-        // Add the specific color to the button used to open the tab content
-        elmnt.style.backgroundColor = color;
-      }
-
-      // Get the element with id="defaultOpen" and click on it
-      document.getElementById("defaultOpen").click();
 }
 
 export default Account;
