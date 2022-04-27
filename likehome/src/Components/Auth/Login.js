@@ -24,6 +24,7 @@ function Login(props) {
         setValid(true);
         setErrMsg("");
         props.setStatus(true);
+        localStorage.setItem('username', cred.email);
         history.push("./home");
       })
       .catch((err) => {

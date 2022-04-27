@@ -48,6 +48,21 @@ app.post('/create-user', (req, res) => {
     )
 });
 
+app.get('/user', (req, res) => {
+    const email = req.query.email;
+
+    db.query('SELECT * FROM users WHERE email = ?', [email], (err, result) => {
+        if (err) {
+            res.status(400).send({})
+        } else {
+            if (result.length === 0) {
+                return res.status(204).send({ message: 'User not found' });
+            }
+            res.send({ ...result[0] });
+        }
+    })
+})
+
 // create reservation in db
 app.post('/create-reservation', (req, res) => {
     db.query('INSERT INTO users (reserveid, userid, hotelid, reserveDateStart, reserveDateEnd, cancelFee) VALUES (?, ?, ?, ?, ?, ?)', 
@@ -97,7 +112,6 @@ app.post('/customer', async (req, res) => {
 app.post("/payment", cors(), async (req, res) => {
 	let { amount, customer_id } = req.body;
 
-    console.log(amount);
 	try {
 		const payment = await stripe.paymentIntents.create({
 			amount,
@@ -113,6 +127,46 @@ app.post("/payment", cors(), async (req, res) => {
 			message: "Payment successful",
 			success: true
 		})
+	} catch (error) {
+		console.log("Error", error)
+		res.json({
+			message: "Payment failed",
+			success: false
+		})
+	}
+})
+
+app.post("/point-payment", cors(), async (req, res) => {
+	let { email } = req.body;
+
+    console.log(email);
+
+	try {
+        db.query(
+            "SELECT * FROM users where email=?",
+            [email], 
+            (err, result) => {
+                const points = result[0].points;
+                const newBalance = points - 10;
+
+                if (newBalance < 0) {
+                    return res.status(400).send({
+                        message: "You do not have enough points",
+                        success: false
+                    });
+                }
+
+                db.query(
+                    "UPDATE users SET points = ? where email=?",
+                    [newBalance, email], 
+                    (err, result) => {
+                        console.log(err, result);
+                        res.json({
+                            message: "Payment successful",
+                            success: true
+                        })
+                    });
+            });
 	} catch (error) {
 		console.log("Error", error)
 		res.json({
