@@ -1,108 +1,176 @@
-import React, { useEffect } from 'react';
-import './ReservationPage.css';
-import { Button } from '@mui/material';
-import StarIcon from '@mui/icons-material/Star';
-import CircleIcon from '@mui/icons-material/Circle';
-import TextField from '@mui/material';
+import React, { useEffect } from "react";
+import "./ReservationPage.css";
+import { Button } from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
+import { useHistory } from "react-router-dom";
+import CircleIcon from "@mui/icons-material/Circle";
+import TextField from "@mui/material";
 
-function Reservation({ img, location, title, description, price, rating, facilities, amenities }) {
+function Reservation(props) {
+  let history = useHistory();
 
+  // useEffect(() => {
+  //   history.push("./catalog");
+  // }, []);
 
   return (
     <div className="reservation_page">
-        
-        <h1>{title}</h1>
+      <h1>{props.reserveData.title}</h1>
 
-        <div className="reservation_review_info">
+      <div className="reservation_review_info">
+        <StarIcon
+          style={{
+            color: "#72aee6",
+          }}
+        ></StarIcon>
 
-          <StarIcon 
-            style={{
-              color:"#72aee6",
-            }}>
-          </StarIcon> 
+        <p1>{props.reserveData.rating}</p1>
+      </div>
 
-          <p1>{rating}</p1>
-        
-        </div>
-            
-        <div className="reservation_top">
-
-          <div className="reservation_top_left">
-            <img comment={img} alt=""/>
-          
-          </div>
-
-          <div className="reservation_top_right">
-            <h2>About</h2>
-            <br/>
-            <p2>{description}</p2>
-            <p6><b>{price}</b> night · <i>{location}</i></p6>
-          </div>
-      
+      <div className="reservation_top">
+        <div className="reservation_top_left">
+          <img src={props.reserveData.img} alt="" />
         </div>
 
-        <p3>_____________________________________________________________________________________________________________________________________________________________</p3>
-        
-        <div className="reservation_details">
-          <h3>Included with Your Stay</h3>
-          <p7>Amenities</p7>
-          <p5>{amenities}</p5>
-          <br/>
-          <p7>Facilities</p7>
-          <p5>{facilities}</p5>
+        <div className="reservation_top_right">
+          <h2>About</h2>
+          <br />
+          <p2>{props.reserveData.description}</p2>
+          <p6>
+            <b>${props.reserveData.price}</b> night ·{" "}
+            <i>{props.reserveData.location}</i>
+          </p6>
+        </div>
+      </div>
+
+      <p3>
+        _____________________________________________________________________________________________________________________________________________________________
+      </p3>
+
+      <div className="reservation_details">
+        <h3>Included with Your Stay</h3>
+        <p7>Amenities</p7>
+        <p5>{props.reserveData.amenities}</p5>
+        <br />
+        <p7>Facilities</p7>
+        <p5>{props.reserveData.facilities}</p5>
+      </div>
+
+      <p3>
+        _____________________________________________________________________________________________________________________________________________________________
+      </p3>
+
+      <div className="reservation_review">
+        <div className="review_left">
+          <h3>Your Trip</h3>
+          <p4>Selected Check In Date: </p4>
+          <p4>Selected Check Out Date: </p4>
+          <p4>Number of Guests: </p4>
         </div>
 
-        <p3>_____________________________________________________________________________________________________________________________________________________________</p3>
-
-        <div className="reservation_review">
-          <div className ="review_left">
-            <h3>Your Trip</h3>
-            <p4>Selected Check In Date: </p4>
-            <p4>Selected Check Out Date: </p4>
-            <p4>Number of Guests: </p4>
-          </div>
-          
-          <div className="review_right">
-            <br/>
-            <p4>{startDate}</p4>
-            <p4>{endDate}</p4>
-            <p4>{noOfGuests}</p4>
-          </div>
-
+        <div className="review_right">
+          <br />
+          <p4>{props.reserveData.startDate.toLocaleDateString()}</p4>
+          <p4>{props.reserveData.endDate.toLocaleDateString()}</p4>
+          <p4>{props.reserveData.noOfGuests}</p4>
         </div>
+      </div>
 
-        <p3>_____________________________________________________________________________________________________________________________________________________________</p3>
+      <p3>
+        _____________________________________________________________________________________________________________________________________________________________
+      </p3>
 
-        <div className="reservation_price">
-        <div className ="price_left">
+      <div className="reservation_price">
+        <div className="price_left">
           <h3>Price Details</h3>
-          <p4>{price} x 6 nights </p4>
+          <p4>
+            ${props.reserveData.price} x{" "}
+            {(props.reserveData.endDate.getTime() -
+              props.reserveData.startDate.getTime()) /
+              (1000 * 60 * 60 * 24)}{" "}
+            nights{" "}
+          </p4>
           <p4>Cleaning Fee: </p4>
           <p4>Service Fee: </p4>
           <p4>Total (USD): </p4>
-          </div>
-          
-          <div className="price_right">
-            <p4> </p4>
-            <p4> </p4>
-            <p4><u>$50.00</u></p4>
-            <p4><u>$55.00</u> </p4>
-            <p4><u>$591</u></p4>
-            <Button 
-              style={{
-                borderRadius:35,
-                marginTop: "60px",
-                backgroundColor:"#72aee6",
-              }}
-              variant="contained"
-            >Checkout</Button>
-          </div>
         </div>
 
-        <p3>_____________________________________________________________________________________________________________________________________________________________</p3>    
+        <div className="price_right">
+          <p4> </p4>
+          <p4>
+            <u>
+              $
+              {Math.round(
+                (props.reserveData.price *
+                  (props.reserveData.endDate.getTime() -
+                    props.reserveData.startDate.getTime())) /
+                  (1000 * 60 * 60 * 24)
+              )}
+            </u>
+          </p4>
+          <p4>
+            <u>
+              $
+              {Math.round(
+                ((props.reserveData.price *
+                  (props.reserveData.endDate.getTime() -
+                    props.reserveData.startDate.getTime())) /
+                  (1000 * 60 * 60 * 24)) *
+                  0.1
+              )}
+            </u>
+          </p4>
+          <p4>
+            <u>
+              $
+              {Math.round(
+                ((props.reserveData.price *
+                  (props.reserveData.endDate.getTime() -
+                    props.reserveData.startDate.getTime())) /
+                  (1000 * 60 * 60 * 24)) *
+                  0.05
+              )}
+            </u>{" "}
+          </p4>
+          <p4>
+            <u>
+              $
+              {Math.round(
+                (props.reserveData.price *
+                  (props.reserveData.endDate.getTime() -
+                    props.reserveData.startDate.getTime())) /
+                  (1000 * 60 * 60 * 24) +
+                  ((props.reserveData.price *
+                    (props.reserveData.endDate.getTime() -
+                      props.reserveData.startDate.getTime())) /
+                    (1000 * 60 * 60 * 24)) *
+                    0.1 +
+                  ((props.reserveData.price *
+                    (props.reserveData.endDate.getTime() -
+                      props.reserveData.startDate.getTime())) /
+                    (1000 * 60 * 60 * 24)) *
+                    0.05
+              )}
+            </u>
+          </p4>
+          <Button
+            style={{
+              borderRadius: 35,
+              marginTop: "60px",
+              backgroundColor: "#72aee6",
+            }}
+            variant="contained"
+          >
+            Checkout
+          </Button>
+        </div>
+      </div>
 
+      <p3>
+        _____________________________________________________________________________________________________________________________________________________________
+      </p3>
     </div>
-  )
+  );
 }
 
-export default Reservation
+export default Reservation;

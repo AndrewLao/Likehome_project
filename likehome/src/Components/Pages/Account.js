@@ -1,89 +1,142 @@
-import React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Divider from '@mui/material/Divider';
-import './Account.css';
+import React, { useState, useEffect } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Divider from "@mui/material/Divider";
+import { useHistory } from "react-router-dom";
+import { getSession } from "../../Backend/auth.js";
+import "./Account.css";
+import Axios from "axios";
 
-function createData(dates, resID, hotel, guests, total){
-    return { dates, resID, hotel, guests, total };
-}
+function Account(props) {
+  let history = useHistory();
 
-// to add to reservations
-function addToRows(dates, resID, hotel, guests, total){
-    var data = createData(dates, resID, hotel, guests, total);
-    rows.push(data);
-}
+  const [uid, setUid] = useState("");
+  const [user, setUser] = useState({
+    fname: "",
+    lname: "",
+    email: "",
+    points: 0,
+  });
 
-var rows = [
-    createData('May 23, 2022 -> May 30, 2022 ', 12932, 'Hilton By the Beach' , 3, 1098.82),
-    createData('June 17, 2022 -> June 23, 2022 ', 19234, 'Sheraton Hotel' , 2, 756.24),
-    createData('Aug 4, 2022 -> Aug 10, 2022 ', 27401,'Marriot' , 2, 2038.67),
-    createData('Sept 21, 2022 -> Sept 26, 2022 ', 29012,'Wyndham Hotel' , 4, 672.90),
-];
+  const [rows, setRows] = useState([]);
 
+  useEffect(() => {
+    isLoggedIn();
+  }, [props.status, uid]);
 
-function Account() {
-    return (
-        <div>
-            <div class="title">
-                <h1 class = "text" id="welcome"> Welcome </h1>
-                <div class='info'>
-                    <h3 class = "text" id="username" > Name </h3>
-                    <Divider/>
-                    <h4 class='name'> Team Zeta </h4>
-                </div>
-                <div class='info'>
-                    <h3 class = "text" id="mail">  Email </h3>
-                    <Divider/>
-                    <h4 class='email'> zetalikehome@mail.com </h4>
-                </div>
-                <div class='info'>
-                    <h3 class = "text" id="points">  Points </h3>
-                    <Divider/>
-                    <h4 class='email'> 72902 points </h4>
-                </div>
+  const isLoggedIn = async () => {
+    getSession()
+      .then((session) => {
+        //setUser({ ...user, id: session.idToken.payload.sub });
+        setUid(session.idToken.payload.sub);
+        Axios.get("http://localhost:3001/get-user", {
+          params: { id: uid },
+        }).then((res) => {
+          setUser({
+            id: res.data[0].id,
+            fname: res.data[0].fname,
+            lname: res.data[0].lname,
+            email: res.data[0].email,
+            points: res.data[0].points,
+          });
+        });
+        Axios.get("http://localhost:3001/get-reservations", {
+          params: { id: uid },
+        }).then((res) => {
+          console.log(res.data[0]);
+          setRows(res.data);
+          //res.data[0] arr of reservations
+        });
+        return true;
+      })
+      .catch((err) => {
+        setUid("");
+        history.push("./home");
+        return false;
+      });
+  };
+  return (
+    <div>
+      {isLoggedIn ? (
+        <>
+          <div class="title">
+            <h1 class="text" id="welcome">
+              {" "}
+              Welcome{" "}
+            </h1>
+            <div class="info">
+              <h3 class="text" id="username">
+                {" "}
+                Name{" "}
+              </h3>
+              <Divider />
+              <h4 class="name"> {user.fname + " " + user.lname} </h4>
             </div>
-            <div class="reservations">
-                <h1 class = "text" id="reserve"> Your Reservations </h1>
-                <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Date</TableCell>
-                            <TableCell align="right">Reservation ID</TableCell>
-                            <TableCell align="right">Hotel</TableCell>
-                            <TableCell align="right">Guests</TableCell>
-                            <TableCell align="right">Total&nbsp;($)</TableCell>
-                        </TableRow>
+            <div class="info">
+              <h3 class="text" id="mail">
+                {" "}
+                Email{" "}
+              </h3>
+              <Divider />
+              <h4 class="email"> {user.email} </h4>
+            </div>
+            <div class="info">
+              <h3 class="text" id="points">
+                {" "}
+                Points{" "}
+              </h3>
+              <Divider />
+              <h4 class="email"> {user.points} </h4>
+            </div>
+          </div>
+          <div class="reservations">
+            <h1 class="text" id="reserve">
+              {" "}
+              Your Reservations{" "}
+            </h1>
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Date</TableCell>
+                    <TableCell align="right">Reservation ID</TableCell>
+                    <TableCell align="right">Hotel</TableCell>
+                    <TableCell align="right">Guests</TableCell>
+                    <TableCell align="right">Total&nbsp;($)</TableCell>
+                  </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                        <TableRow
-                        key={row.dates}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell component="th" scope="row">
-                                {row.dates}
-                            </TableCell>
-                            <TableCell align="right">{row.resID}</TableCell>
-                            <TableCell align="right">{row.hotel}</TableCell>
-                            <TableCell align="right">{row.guests}</TableCell>
-                            <TableCell align="right">{row.total}</TableCell>
-                        </TableRow>
-                    ))}
+                  {rows.map((row) => (
+                    <TableRow
+                      key={row.dates}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.reserveDateStart.substring(0, 10) +
+                          " - " +
+                          row.reserveDateEnd.substring(0, 10)}
+                      </TableCell>
+                      <TableCell align="right">{row.reserveid}</TableCell>
+                      <TableCell align="right">{row.hotelid}</TableCell>
+                      <TableCell align="right">{row.guests}</TableCell>
+                      <TableCell align="right">{row.totalprice}</TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
-      </Table>
-    </TableContainer>
-            </div>
-            
-        </div>
-    );
-
+              </Table>
+            </TableContainer>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
+    </div>
+  );
 }
 
 export default Account;

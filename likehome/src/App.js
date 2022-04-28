@@ -11,56 +11,84 @@ import ReservationPage from "./Components/Pages/ReservationPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { getSession } from "./Backend/auth.js";
 import Axios from "axios";
-import StripeContainer from './Components/PaymentForm/StripeContainer';
-import ThankYou from './Components/Pages/ThankYou';
+import StripeContainer from "./Components/PaymentForm/StripeContainer";
+import ThankYou from "./Components/Pages/ThankYou";
 
 function App() {
-
   // use states for global application variables
-  const [status, setStatus] = useState(false); // status = login status True = logged in
-  const [sorted, setSorted] = useState([]);    // sorted = array of hotels passed into all parts where hotels are not constant i.e. search
-  const [hotels, setHotels] = useState([]);    // single source of truth for hotels
-  const [range, setRange] = useState({         // calendar date ranges and guest number
-    startDate: new Date().toLocaleDateString(),
-    endDate: new Date().toLocaleDateString(),
-    guests: 1
+  const [status, setStatus] = useState({
+    status: false,
+    sub: "",
+    fname: "",
+    lname: "",
+    email: "",
+  }); // status = login status True = logged in
+  const [sorted, setSorted] = useState([]); // sorted = array of hotels passed into all parts where hotels are not constant i.e. search
+  const [filtered, setFiltered] = useState([]); //filtered = array of hotels filtered by filter options such as sort by price.
+  const [hotels, setHotels] = useState([]); // single source of truth for hotels
+  const [range, setRange] = useState({
+    // calendar date ranges and guest number
+    startDate: new Date(),
+    endDate: new Date(),
+    guests: 1,
   });
-  
+  const [isFiltered, setIsFiltered] = useState(false); //This is to signal to the searchbar whether to search based on the filtered list or original hotel list. (yes this is scuffed but it will work)
+  const [reserveData, setReserveData] = useState({
+    img: "",
+    location: "",
+    title: "",
+    description: "",
+    price: 0,
+    rating: 0,
+    facilities: "",
+    amenities: "",
+    startDate: "",
+    endDate: "",
+    noOfGuests: 0,
+  });
+
   // every time the page reloads run this
   // get whether or not the user is logged in or not
   // get all hotels from the db and set it to both hotels and sorted
   useEffect(() => {
     getSession()
       .then((session) => {
-        setStatus(true);
+        setStatus({
+          status: true,
+          sub: session.idToken.payload.sub,
+          fname: session.idToken.payload.given_name,
+          lname: session.idToken.payload.family_name,
+          email: session.idToken.payload.email,
+        });
       })
-      .catch((err) => {
-      });
+      .catch((err) => {});
     // get data on page load
-    Axios.get('http://localhost:3001/get-hotels').then((res) => {
-        setHotels(res.data);
-        setSorted(res.data);
+    Axios.get("http://localhost:3001/get-hotels").then((res) => {
+      setHotels(res.data);
+      setSorted(res.data);
     });
   }, []);
-  
+
   return (
     // BEM
     <div className="app">
       <Router>
         {/*PASS EVERYTHING INTO HEADER DONT KNOW HOW ELSE TO DO THIS*/}
-        <Header 
-          status={status} 
-          setStatus={setStatus} 
-          hotels={hotels} 
-          sorted={sorted} 
+        <Header
+          status={status}
+          setStatus={setStatus}
+          hotels={hotels}
+          sorted={sorted}
           setSorted={setSorted}
           range={range}
           setRange={setRange}
+          filtered={filtered}
+          isFiltered={isFiltered}
         />
 
         <Switch>
           <Route path="/login">
-            <Login setStatus={setStatus} />
+            <Login status={status} setStatus={setStatus} />
           </Route>
 
           <Route path="/signup">
@@ -68,11 +96,17 @@ function App() {
           </Route>
 
           <Route path="/account">
-            <Account />
+            <Account status={status} />
           </Route>
 
           <Route path="/catalog">
-            <CatalogPage hotels={sorted} range={range} />
+            <CatalogPage
+              setFiltered={setFiltered}
+              setIsFiltered={setIsFiltered}
+              setReserveData={setReserveData}
+              hotels={sorted}
+              range={range}
+            />
           </Route>
 
           <Route path="/payment-form">
@@ -84,7 +118,7 @@ function App() {
           </Route>
 
           <Route path="/reservation">
-            <ReservationPage />
+            <ReservationPage reserveData={reserveData} />
           </Route>
 
           <Route path="/">

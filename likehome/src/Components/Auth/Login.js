@@ -23,7 +23,14 @@ function Login(props) {
       .then((data) => {
         setValid(true);
         setErrMsg("");
-        props.setStatus(true);
+        props.setStatus({
+          status: true,
+          sub: data.idToken.payload.sub,
+          fname: data.idToken.payload.given_name,
+          lname: data.idToken.payload.family_name,
+          email: data.idToken.payload.email,
+        });
+        console.log(props.status);
         history.push("./home");
       })
       .catch((err) => {
@@ -40,20 +47,26 @@ function Login(props) {
   const handleEnterKeyPress = async (e) => {
     if (e.key === "Enter") {
       login(cred.email, cred.password)
-      .then((data) => {
-        setValid(true);
-        setErrMsg("");
-        props.setStatus(true);
-        history.push("./home");
-      })
-      .catch((err) => {
-        setValid(false);
-        if (err.name === "UserNotConfirmedException") {
-          setErrMsg("Email Not Verified");
-        } else {
-          setErrMsg("Incorrect username/password");
-        }
-      });
+        .then((data) => {
+          setValid(true);
+          setErrMsg("");
+          props.setStatus({
+            status: true,
+            sub: data.idToken.payload.sub,
+            fname: data.idToken.payload.given_name,
+            lname: data.idToken.payload.family_name,
+            email: data.idToken.payload.email,
+          });
+          history.push("./home");
+        })
+        .catch((err) => {
+          setValid(false);
+          if (err.name === "UserNotConfirmedException") {
+            setErrMsg("Email Not Verified");
+          } else {
+            setErrMsg("Incorrect username/password");
+          }
+        });
     }
   };
 
@@ -61,7 +74,7 @@ function Login(props) {
     <div className="loginSignup">
       <Grid align="center">
         <h2>Login</h2>
-      {/* form for login */}
+        {/* form for login */}
       </Grid>
       <TextField
         label="Email Address"
