@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 import { getSession } from "../../Backend/auth.js";
 import "./Account.css";
 import Axios from "axios";
+import Button from "@mui/material/Button";
 
 function Account(props) {
   let history = useHistory();
@@ -125,6 +126,8 @@ function Account(props) {
                       <TableCell align="right">{row.hotelid}</TableCell>
                       <TableCell align="right">{row.guests}</TableCell>
                       <TableCell align="right">{row.totalprice}</TableCell>
+                      <TableCell><Button variant="contained" align="right" sx={{marginLeft: 3}} >Change</Button></TableCell>
+                      <TableCell><Button variant="contained" align="right" sx={{marginLeft: 3}} >Cancel</Button></TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
