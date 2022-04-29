@@ -47,9 +47,11 @@ export default function StripeContainer(){
         return <div />;
     }
 
-    return(
+    return (
+        
         <Elements stripe={stripeTestPromise} options={options}>
             <CheckoutForm />
-        </Elements>
+            </Elements>
+         
     )
 }
