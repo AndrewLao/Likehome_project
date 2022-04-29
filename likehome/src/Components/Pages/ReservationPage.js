@@ -16,10 +16,19 @@ function Reservation(props) {
     getSession()
       .then((session) => {
         isAlreadyReserved(session.idToken.payload.sub).then((res) => {
-            console.log(res);
+            if (!res) {
+              history.push("./payment-form");
+            } else {
+              console.log("Already reserved");
+            }
         });
       })
-      .catch((err) => {});
+      .catch((err) => { // if no session redirect to login
+        history.push("./login");
+      });
+
+    // if no session redirect to login
+    
   };
 
   // check if user already has a reservation under the same day
@@ -28,7 +37,6 @@ function Reservation(props) {
     let isReserved = await Axios.get(`${config.apiUrl}/multiple-reservation-check`, {
       params: { id: id, startDate: props.reserveData.startDate, endDate: props.reserveData.endDate }})
       .then((res) => {
-      console.log(res.data);
       return (res.data.length > 0);
     }
     , []);
@@ -60,7 +68,7 @@ function Reservation(props) {
           <br />
           <p2>{props.reserveData.description}</p2>
           <p6>
-            <b>${props.reserveData.price}</b> night ·{" "}
+            <b>${props.reserveData.price}</b> / night ·{" "}
             <i>{props.reserveData.location}</i>
           </p6>
         </div>
@@ -154,7 +162,9 @@ function Reservation(props) {
                   0.05
               )}
             </u>{" "}
+            
           </p4>
+      
           <p4>
             <u>
               $

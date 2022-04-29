@@ -23,7 +23,7 @@ const useUser = () => {
   return user;
 }
 
-const CheckoutForm = () => {
+const CheckoutForm = (props) => {
   const stripe = useStripe();
   const elements = useElements();
   const [form, setForm ] = React.useState({
@@ -53,6 +53,12 @@ const CheckoutForm = () => {
       //`Elements` instance that was used to create the Payment Element
       elements,
       confirmParams: {
+
+
+
+
+
+        //props.hid is hotel id. MAKE A POST REQUEST HERE TO MAKE THE RESERVATION
         return_url: "http://localhost:3000/thank-you",
       },
     });
@@ -84,6 +90,12 @@ const CheckoutForm = () => {
       if (!data.success) {
         return setError(data.message);;
       }
+
+
+
+
+
+      //props.hid is hotel id. MAKE A POST REQUEST HERE TO MAKE THE RESERVATION
       history.push('/thank-you');
     }).catch((e) => {
       setError(e.response.data.message);
@@ -105,6 +117,7 @@ const CheckoutForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <p>Total Cost: ${props.price}</p>
       <button type="button" onClick={() => setPayMethod('card')}>Pay by card</button>
       <button type="button" onClick={() => setPayMethod('points')}>Pay by points</button>
       {payMethod === 'card' && (

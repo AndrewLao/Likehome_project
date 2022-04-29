@@ -48,6 +48,7 @@ function App() {
     noOfGuests: 0,
   });
 
+
   // every time the page reloads run this
   // get whether or not the user is logged in or not
   // get all hotels from the db and set it to both hotels and sorted
@@ -69,6 +70,12 @@ function App() {
       setSorted(res.data);
     });
   }, []);
+
+  const getHotelID = () => {
+    //return hotels;
+    return hotels.find((e) => e.hotelname === reserveData.title);
+
+  }
 
   return (
     // BEM
@@ -111,7 +118,7 @@ function App() {
           </Route>
 
           <Route path="/payment-form">
-            <StripeContainer />
+            <StripeContainer reserveData={reserveData} getHotelID={getHotelID()} />
           </Route>
 
           <Route path="/thank-you">

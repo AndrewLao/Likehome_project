@@ -6,10 +6,17 @@ import CheckoutForm from './CheckoutForm'
 
 const PUBLIC_KEY = "pk_test_51KqTEqDA7Rn06lEUsFeyQeWifhB8uNJtiQxMTMRSdj6PzUCWAbVq0bYnN9pYsEDHXSu0sO3JMsI35xXBAhD66BFu000HldkdsD"
 
-const stripeTestPromise = loadStripe(PUBLIC_KEY)
+const stripeTestPromise = loadStripe(PUBLIC_KEY);
 
-export default function StripeContainer(){
+
+export default function StripeContainer(props){
     const [clientSecret, setClientSecret] = React.useState('');
+
+    const price = Math.round(
+            (props.reserveData.price * (props.reserveData.endDate.getTime() - props.reserveData.startDate.getTime())) /
+                (1000 * 60 * 60 * 24) + ((props.reserveData.price * (props.reserveData.endDate.getTime() - props.reserveData.startDate.getTime())) /
+                (1000 * 60 * 60 * 24)) * 0.1 + ((props.reserveData.price * (props.reserveData.endDate.getTime() - props.reserveData.startDate.getTime())) /
+                (1000 * 60 * 60 * 24)) * 0.05);
 
     React.useEffect(() =>{
         const request = async () => {
@@ -26,7 +33,22 @@ export default function StripeContainer(){
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    amount: 100,
+                    amount: Math.round(
+                        (props.reserveData.price *
+                          (props.reserveData.endDate.getTime() -
+                            props.reserveData.startDate.getTime())) /
+                          (1000 * 60 * 60 * 24) +
+                          ((props.reserveData.price *
+                            (props.reserveData.endDate.getTime() -
+                              props.reserveData.startDate.getTime())) /
+                            (1000 * 60 * 60 * 24)) *
+                            0.1 +
+                          ((props.reserveData.price *
+                            (props.reserveData.endDate.getTime() -
+                              props.reserveData.startDate.getTime())) /
+                            (1000 * 60 * 60 * 24)) *
+                            0.05
+                      ), 
                     customer_id: customer.customer_id,
                 }),
             }).then((resp) => {
@@ -49,7 +71,7 @@ export default function StripeContainer(){
 
     return(
         <Elements stripe={stripeTestPromise} options={options}>
-            <CheckoutForm />
+            <CheckoutForm hid={props.getHotelID.id} price={price}/>
         </Elements>
     )
 }
