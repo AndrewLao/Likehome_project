@@ -69,9 +69,11 @@ export default function StripeContainer(props){
         return <div />;
     }
 
-    return(
+    return (
+        
         <Elements stripe={stripeTestPromise} options={options}>
-            <CheckoutForm hid={props.getHotelID.id} price={price}/>
-        </Elements>
+            <CheckoutForm />
+            </Elements>
+         
     )
 }

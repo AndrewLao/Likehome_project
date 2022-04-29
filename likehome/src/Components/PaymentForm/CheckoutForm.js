@@ -3,6 +3,7 @@ import { Button, TextField } from '@mui/material';
 import React from 'react';
 import config from '../../config';
 import { useHistory } from 'react-router-dom';
+import "./CheckoutForm.css";
 
 const fields = [
     {
@@ -115,24 +116,38 @@ const CheckoutForm = (props) => {
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <p>Total Cost: ${props.price}</p>
-      <button type="button" onClick={() => setPayMethod('card')}>Pay by card</button>
-      <button type="button" onClick={() => setPayMethod('points')}>Pay by points</button>
-      {payMethod === 'card' && (
-        <PaymentElement />
-      )}
-      {payMethod === 'points' && (
-        <div>
-          {user && <h1>You have {user.points} points</h1>}
-          {error && <p>{error}</p>}
-        </div>
-      )}
-      <Button type="submit" disabled={!stripe}>
-        Payment
-      </Button>
-    </form>
+    return (
+        
+        <div class="center-screen">
+            <div class="order-summary">
+                <div class="add-space">
+                    <p>Order Total:</p>
+                </div>
+                <div class="add-space">
+                    <p>$50</p>
+                </div>
+                <div class="add-space">
+                    <button variant="outlined" onClick={() => setPayMethod('points')}>Apply Points</button>
+                </div>
+                    
+            </div>
+            
+        <form onSubmit={handleSubmit}>
+            
+            {payMethod === 'card' && (
+                <PaymentElement />
+            )}
+            {payMethod === 'points' && (
+            <div>
+            {user && <h1>You have {user.points} points</h1>}
+            {error && <p>{error}</p>}
+            </div>
+        )}
+        <Button type="submit" disabled={!stripe}>
+            Payment
+        </Button>
+            </form>
+       </div>
   )
 };
 

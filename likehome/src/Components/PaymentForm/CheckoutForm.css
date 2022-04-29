@@ -1,0 +1,19 @@
+.order-summary {
+    display: flex;
+    padding-bottom: 50px;
+    justify-content: space-between;
+    align-items: left;
+}
+
+.center-screen {
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}
+.add-space{
+    margin-right: 10px;
+    margin-left: 10px;
+}
