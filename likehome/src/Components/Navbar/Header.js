@@ -111,6 +111,10 @@ function Header(props) {
     key: "selection",
   };
 
+  const handleAccount = () => {
+    history.push("./login")
+  }
+
   return (
     <>
       <div className="header">
@@ -162,7 +166,7 @@ function Header(props) {
             </>
           ) : (
             <>
-              <IconButton>
+              <IconButton onClick={handleAccount}>
                 <Avatar />
               </IconButton>
             </>

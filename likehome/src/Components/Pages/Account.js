@@ -56,7 +56,7 @@ function Account(props) {
       })
       .catch((err) => {
         setUid("");
-        history.push("./home");
+        history.push("./login");
         return false;
       });
   };

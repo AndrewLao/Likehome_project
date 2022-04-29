@@ -13,6 +13,7 @@ import { getSession } from "./Backend/auth.js";
 import Axios from "axios";
 import StripeContainer from "./Components/PaymentForm/StripeContainer";
 import ThankYou from "./Components/Pages/ThankYou";
+import config from "./config";
 
 function App() {
   // use states for global application variables
@@ -63,7 +64,7 @@ function App() {
       })
       .catch((err) => {});
     // get data on page load
-    Axios.get("http://localhost:3001/get-hotels").then((res) => {
+    Axios.get(`${config.apiUrl}/get-hotels`).then((res) => {
       setHotels(res.data);
       setSorted(res.data);
     });

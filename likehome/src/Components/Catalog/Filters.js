@@ -6,19 +6,16 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Slider from "@mui/material/Slider";
 import Axios from "axios";
+import config from "../../config"
 
 const Filters = (props) => {
   //Sorting stuff
   const [sort, setSort] = useState(10);
-  //   const handleChange = (event) => {
-  //     setSort(event.target.value);
-  //     handleFilter();
-  //   };
-
+  
   useEffect(() => {
     handleFilter();
   }, [sort]);
-
+  
   // Price Filter Functions Start
   function valuetext(value) {
     return `${value}°C`;
@@ -50,7 +47,7 @@ const Filters = (props) => {
     //then catalogpage to Filters.js?
     let sqlWhere = "";
     let callDB = false;
-    if (value[0] != 0 || value[1] != 30) {
+    if (value[0] !== 0 || value[1] !== 30) {
       sqlWhere +=
         "price >= " +
         value[0] * 100 +
@@ -59,7 +56,7 @@ const Filters = (props) => {
         " AND ";
       callDB = true;
     }
-    if (value2[0] != 0 || value2[1] != 10) {
+    if (value2[0] !== 0 || value2[1] !== 10) {
       sqlWhere +=
         "ratingVal >= " +
         value2[0] +
@@ -103,7 +100,7 @@ const Filters = (props) => {
     if (callDB) {
       props.setIsFiltered(true);
       //console.log(sqlWhere);
-      Axios.get("http://localhost:3001/get-hotels-filtered", {
+      Axios.get(`${config.apiUrl}/get-hotels-filtered`, {
         params: { where: sqlWhere },
       }).then((res) => {
         props.setHotels(res.data);
@@ -111,9 +108,9 @@ const Filters = (props) => {
     } else {
       props.setIsFiltered(false);
     }
-
-    //props.setFiltered(); //After calling sql to filter everything, use props.setFiltered() to assign the new sorted hotels array
   };
+
+
   // Ratings Filter Functions End
   return (
     <>

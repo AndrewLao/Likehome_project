@@ -65,14 +65,13 @@ app.get('/user', (req, res) => {
             res.send({ ...result[0] });
         }
     })
-})
+});
 
 // create reservation in db
 app.post("/create-reservation", (req, res) => {
   db.query(
-    "INSERT INTO users (reserveid, userid, hotelid, reserveDateStart, reserveDateEnd, guests, totalprice, cancelFee) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+    "INSERT INTO reservations (userid, hotelid, reserveDateStart, reserveDateEnd, guests, totalprice, cancelFee) VALUES (?, ?, DATE ?,DATE ?, ?, ?, ?)",
     [
-      req.body.reserveid,
       req.body.userid,
       req.body.hotelid,
       req.body.reserveDateStart,
@@ -87,6 +86,28 @@ app.post("/create-reservation", (req, res) => {
         console.log(err);
       } else {
         res.send("Insert Done");
+      }
+    }
+  );
+});
+
+// 
+app.get("/multiple-reservation-check", (req, res) => {
+  
+  let start = req.query.startDate.substring(0,10);
+  let end = req.query.endDate.substring(0,10);
+  const query = "SELECT * FROM Reservations where userid='" + req.query.id + "' AND (('" + 
+  start + "' < reserveDateStart and '" + end + 
+  "' >reserveDateStart) OR ('" + start + "' >= reserveDateStart and '" + start + "'< reserveDateEnd))"; 
+     //if start date is between reservation start AND end date is after reserve start, conflict
+     //if startdate is == or > reserve start date AND it is before the reserve end date, between conflict.
+  //((startDate < reserveStartDate AND endDate > reserveStartDate) OR (startDate >= reserveStartDate AND startDate < reserveEndDate))
+  db.query(query, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+        console.log(result);
       }
     }
   );
@@ -156,7 +177,7 @@ app.post("/customer", async (req, res) => {
 			success: false
 		})
 	}
-})
+});
 
 app.post("/point-payment", cors(), async (req, res) => {
 	let { email } = req.body;
@@ -196,7 +217,7 @@ app.post("/point-payment", cors(), async (req, res) => {
 			success: false
 		})
 	}
-})
+});
 
 app.post("/payment", cors(), async (req, res) => {
   let { amount, customer_id } = req.body;

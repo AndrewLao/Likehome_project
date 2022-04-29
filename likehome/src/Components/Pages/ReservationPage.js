@@ -1,20 +1,43 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./ReservationPage.css";
 import { Button } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { useHistory } from "react-router-dom";
-import CircleIcon from "@mui/icons-material/Circle";
-import TextField from "@mui/material";
+import { getSession } from "../../Backend/auth.js";
+import Axios from "axios"
+import config from "../../config"
 
 function Reservation(props) {
   let history = useHistory();
 
-  // useEffect(() => {
-  //   history.push("./catalog");
-  // }, []);
+  //Check if user is logged in first 
+  //If logged in, redirect to payment-form & pass in hotel title
+  const handleCheckout = () => {
+    getSession()
+      .then((session) => {
+        isAlreadyReserved(session.idToken.payload.sub).then((res) => {
+            console.log(res);
+        });
+      })
+      .catch((err) => {});
+  };
+
+  // check if user already has a reservation under the same day
+  // return false if they do not have a reservation else return true if there exists a reservation
+  const isAlreadyReserved = async (id) => {
+    let isReserved = await Axios.get(`${config.apiUrl}/multiple-reservation-check`, {
+      params: { id: id, startDate: props.reserveData.startDate, endDate: props.reserveData.endDate }})
+      .then((res) => {
+      console.log(res.data);
+      return (res.data.length > 0);
+    }
+    , []);
+    return isReserved;
+  };
 
   return (
-    <div className="reservation_page">
+    <>
+    {props.reserveData.title === "" ? history.push("./catalog") : <div className="reservation_page">
       <h1>{props.reserveData.title}</h1>
 
       <div className="reservation_review_info">
@@ -160,6 +183,7 @@ function Reservation(props) {
               backgroundColor: "#72aee6",
             }}
             variant="contained"
+            onClick={() => handleCheckout()}
           >
             Checkout
           </Button>
@@ -169,7 +193,8 @@ function Reservation(props) {
       <p3>
         _____________________________________________________________________________________________________________________________________________________________
       </p3>
-    </div>
+    </div>} 
+    </>
   );
 }
 
