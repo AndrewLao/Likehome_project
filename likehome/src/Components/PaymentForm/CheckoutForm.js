@@ -1,6 +1,8 @@
 import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
 import { Button, TextField } from '@mui/material';
 import React from 'react';
+import config from '../../config';
+import { useHistory } from 'react-router-dom';
 
 const fields = [
     {
@@ -8,12 +10,29 @@ const fields = [
     },
 ];
 
+const useUser = () => {
+  const [user, setUser] = React.useState(null);
+
+  React.useEffect(() => {
+    const username = localStorage.getItem('username');
+    fetch(config.apiUrl + '/user?email=' + username).then((res) => res.json()).then((data) => {
+      setUser(data);
+    });
+  }, []);
+
+  return user;
+}
+
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [form, setForm ] = React.useState({
       name: '',
   })
+  const history = useHistory();
+  const [payMethod, setPayMethod] = React.useState('card');
+  const user = useUser();
+  const [error, setError] = React.useState(null);
 
   const handleOnChange = (evt) => {
       setForm(prevState => ({
@@ -22,10 +41,7 @@ const CheckoutForm = () => {
       }));
   }
 
-  const handleSubmit = async (event) => {
-    // We don't want to let default form submission happen here,
-    // which would refresh the page.
-    event.preventDefault();
+  const payWithStripe = async () => {
 
     if (!stripe || !elements) {
       // Stripe.js has not yet loaded.
@@ -49,19 +65,57 @@ const CheckoutForm = () => {
       // methods like iDEAL, your customer will be redirected to an intermediate
       // site first to authorize the payment, then redirected to the `return_url`.
     }
+  }
+
+  const payWithPoints = () => {
+    setError(null);
+
+    fetch(config.apiUrl + '/point-payment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: localStorage.getItem('username')
+      })
+    }).then((res) => {
+      return res.json();
+    }).then((data) => {
+      if (!data.success) {
+        return setError(data.message);;
+      }
+      history.push('/thank-you');
+    }).catch((e) => {
+      setError(e.response.data.message);
+    })
+  }
+
+  const handleSubmit = async (event) => {
+    // We don't want to let default form submission happen here,
+    // which would refresh the page.
+    event.preventDefault();
+
+
+    if (payMethod === 'card') {
+      payWithStripe();
+    } else if (payMethod === 'points') {
+      payWithPoints();
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <PaymentElement />
-      {/* {fields.map((field) => (
-          <div>
-              <label>
-                  {field.name}
-                  <TextField variant="outlined" name={field.name} value={form.name} onChange={handleOnChange} />
-              </label>
-          </div>
-      ))} */}
+      <button type="button" onClick={() => setPayMethod('card')}>Pay by card</button>
+      <button type="button" onClick={() => setPayMethod('points')}>Pay by points</button>
+      {payMethod === 'card' && (
+        <PaymentElement />
+      )}
+      {payMethod === 'points' && (
+        <div>
+          {user && <h1>You have {user.points} points</h1>}
+          {error && <p>{error}</p>}
+        </div>
+      )}
       <Button type="submit" disabled={!stripe}>
         Payment
       </Button>

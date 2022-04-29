@@ -52,6 +52,21 @@ app.post("/create-user", (req, res) => {
   );
 });
 
+app.get('/user', (req, res) => {
+    const email = req.query.email;
+
+    db.query('SELECT * FROM users WHERE email = ?', [email], (err, result) => {
+        if (err) {
+            res.status(400).send({})
+        } else {
+            if (result.length === 0) {
+                return res.status(204).send({ message: 'User not found' });
+            }
+            res.send({ ...result[0] });
+        }
+    })
+})
+
 // create reservation in db
 app.post("/create-reservation", (req, res) => {
   db.query(
@@ -119,7 +134,69 @@ app.post("/customer", async (req, res) => {
     name: "John Doe",
   });
   return res.send({ customer_id: customer.id });
-});
+	try {
+		const payment = await stripe.paymentIntents.create({
+			amount,
+			currency: "USD",
+			description: "LikeHome",
+            customer: customer_id,
+            // payment_method: id,
+			// confirm: true
+		})
+		console.log("Payment", payment)
+		res.json({
+            clientSecret: payment.client_secret,
+			message: "Payment successful",
+			success: true
+		})
+	} catch (error) {
+		console.log("Error", error)
+		res.json({
+			message: "Payment failed",
+			success: false
+		})
+	}
+})
+
+app.post("/point-payment", cors(), async (req, res) => {
+	let { email } = req.body;
+
+    console.log(email);
+
+	try {
+        db.query(
+            "SELECT * FROM users where email=?",
+            [email], 
+            (err, result) => {
+                const points = result[0].points;
+                const newBalance = points - 10;
+
+                if (newBalance < 0) {
+                    return res.status(400).send({
+                        message: "You do not have enough points",
+                        success: false
+                    });
+                }
+
+                db.query(
+                    "UPDATE users SET points = ? where email=?",
+                    [newBalance, email], 
+                    (err, result) => {
+                        console.log(err, result);
+                        res.json({
+                            message: "Payment successful",
+                            success: true
+                        })
+                    });
+            });
+	} catch (error) {
+		console.log("Error", error)
+		res.json({
+			message: "Payment failed",
+			success: false
+		})
+	}
+})
 
 app.post("/payment", cors(), async (req, res) => {
   let { amount, customer_id } = req.body;
