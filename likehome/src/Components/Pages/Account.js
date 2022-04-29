@@ -123,7 +123,7 @@ function Account(props) {
                           row.reserveDateEnd.substring(0, 10)}
                       </TableCell>
                       <TableCell align="right">{row.reserveid}</TableCell>
-                      <TableCell align="right">{row.hotelid}</TableCell>
+                      <TableCell align="right">{props.hotels.find((e) => e.id === row.hotelid).hotelname}</TableCell>
                       <TableCell align="right">{row.guests}</TableCell>
                       <TableCell align="right">{row.totalprice}</TableCell>
                       <TableCell><Button variant="contained" align="right" sx={{marginLeft: 3}} >Change</Button></TableCell>

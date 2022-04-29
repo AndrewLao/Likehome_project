@@ -4,6 +4,8 @@ import React from 'react';
 import config from '../../config';
 import { useHistory } from 'react-router-dom';
 import "./CheckoutForm.css";
+import { getSession } from "../../Backend/auth.js";
+import Axios from "axios";
 
 const fields = [
     {
@@ -13,13 +15,25 @@ const fields = [
 
 const useUser = () => {
   const [user, setUser] = React.useState(null);
+  let history = useHistory();
+  // React.useEffect(() => {
+  //   const username = localStorage.getItem('username');
+  //   fetch(config.apiUrl + '/user?email=' + username).then((res) => res.json()).then((data) => {
+  //     setUser(data);
+  //   });
+  // }, []);
+  getSession()
+      .then((session) => {
+        Axios.get("http://localhost:3001/get-user", {
+          params: { id: session.idToken.payload.sub },
+        }).then((res) => {
+          setUser({points: res.data[0].points});
+        });
+      })
+      .catch((err) => { // if no session redirect to login
+        history.push("./login");
+      });
 
-  React.useEffect(() => {
-    const username = localStorage.getItem('username');
-    fetch(config.apiUrl + '/user?email=' + username).then((res) => res.json()).then((data) => {
-      setUser(data);
-    });
-  }, []);
 
   return user;
 }
@@ -55,11 +69,31 @@ const CheckoutForm = (props) => {
       elements,
       confirmParams: {
 
-
-
-
-
+        /**
+         * req.body.userid,
+      req.body.hotelid,
+      req.body.reserveDateStart,
+      req.body.reserveDateEnd,
+      req.body.guests,
+      req.body.totalprice,
+      req.body.cancelFee,
+        const [reserveData, setReserveData] = useState({
+    img: "",
+    location: "",
+    title: "",
+    description: "",
+    price: 0,
+    rating: 0,
+    facilities: "",
+    amenities: "",
+    startDate: "",
+    endDate: "",
+    noOfGuests: 0,
+  });
+         */
         //props.hid is hotel id. MAKE A POST REQUEST HERE TO MAKE THE RESERVATION
+        
+
         return_url: "http://localhost:3000/thank-you",
       },
     });
@@ -77,20 +111,20 @@ const CheckoutForm = (props) => {
   const payWithPoints = () => {
     setError(null);
 
-    fetch(config.apiUrl + '/point-payment', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: localStorage.getItem('username')
-      })
-    }).then((res) => {
-      return res.json();
-    }).then((data) => {
-      if (!data.success) {
-        return setError(data.message);;
-      }
+    // fetch(config.apiUrl + '/point-payment', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     email: localStorage.getItem('username')
+    //   })
+    // }).then((res) => {
+    //   return res.json();
+    // }).then((data) => {
+    //   if (!data.success) {
+    //     return setError(data.message);;
+    //   }
 
 
 
@@ -98,9 +132,9 @@ const CheckoutForm = (props) => {
 
       //props.hid is hotel id. MAKE A POST REQUEST HERE TO MAKE THE RESERVATION
       history.push('/thank-you');
-    }).catch((e) => {
-      setError(e.response.data.message);
-    })
+    // }).catch((e) => {
+    //   setError(e.response.data.message);
+    // })
   }
 
   const handleSubmit = async (event) => {
@@ -116,21 +150,22 @@ const CheckoutForm = (props) => {
     }
   };
 
-    return (
-        
+    return (   
         <div class="center-screen">
-            <div class="order-summary">
+            {/* <div class="order-summary">
                 <div class="add-space">
                     <p>Order Total:</p>
                 </div>
                 <div class="add-space">
-                    <p>$50</p>
+                    <p>${props.price}</p>
                 </div>
                 <div class="add-space">
                     <button variant="outlined" onClick={() => setPayMethod('points')}>Apply Points</button>
                 </div>
-                    
-            </div>
+            </div> */}
+        <p>Order Total: {payMethod === 'card' ? ("$"+props.price) : (props.price+" points")} <Button onClick={() => {
+          payMethod === 'card' ? setPayMethod('points') : setPayMethod('card')
+        }}>{payMethod === 'card' ? "Apply Points" : "Pay With Card"}</Button><br/><br/><br/></p>
             
         <form onSubmit={handleSubmit}>
             
@@ -139,14 +174,20 @@ const CheckoutForm = (props) => {
             )}
             {payMethod === 'points' && (
             <div>
-            {user && <h1>You have {user.points} points</h1>}
-            {error && <p>{error}</p>}
+            {user && <p>You have {user.points} points</p>}
+            {error && <p>{error}</p>} <br/><br/>
             </div>
         )}
         <Button type="submit" disabled={!stripe}>
-            Payment
+          Payment
         </Button>
-            </form>
+        <Button 
+          onClick={() => {
+            history.push("./catalog");
+          }}>
+          Cancel
+        </Button>
+        </form>
        </div>
   )
 };

@@ -193,7 +193,18 @@ function Reservation(props) {
               backgroundColor: "#72aee6",
             }}
             variant="contained"
-            onClick={() => handleCheckout()}
+            onClick={() => {
+              if (
+                Math.round((props.reserveData.price * (props.reserveData.endDate.getTime() - props.reserveData.startDate.getTime())) /
+                  (1000 * 60 * 60 * 24) + ((props.reserveData.price * (props.reserveData.endDate.getTime() - props.reserveData.startDate.getTime())) /
+                    (1000 * 60 * 60 * 24)) * 0.1 + ((props.reserveData.price * (props.reserveData.endDate.getTime() - props.reserveData.startDate.getTime())) /
+                    (1000 * 60 * 60 * 24)) * 0.05) > 0 ) 
+              {
+                handleCheckout();
+              } else {
+                alert("Price is 0");
+              }
+            }}
           >
             Checkout
           </Button>

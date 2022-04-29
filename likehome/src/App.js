@@ -72,7 +72,6 @@ function App() {
   }, []);
 
   const getHotelID = () => {
-    //return hotels;
     return hotels.find((e) => e.hotelname === reserveData.title);
 
   }
@@ -104,7 +103,7 @@ function App() {
           </Route>
 
           <Route path="/account">
-            <Account status={status} />
+            <Account hotels={hotels} />
           </Route>
 
           <Route path="/catalog">
@@ -118,7 +117,7 @@ function App() {
           </Route>
 
           <Route path="/payment-form">
-            <StripeContainer reserveData={reserveData} getHotelID={getHotelID()} />
+            <StripeContainer reserveData={reserveData} getHotelID={getHotelID()} fname={status.fname} lname={status.lname}/>
           </Route>
 
           <Route path="/thank-you">

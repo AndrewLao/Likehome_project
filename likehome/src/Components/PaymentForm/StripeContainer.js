@@ -25,6 +25,9 @@ export default function StripeContainer(props){
                 headers : {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    fullname: props.fname + " " + props.lname
+                })
             }).then((res) => res.json());
     
             fetch(`${config.apiUrl}/payment`, {
@@ -33,22 +36,7 @@ export default function StripeContainer(props){
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    amount: Math.round(
-                        (props.reserveData.price *
-                          (props.reserveData.endDate.getTime() -
-                            props.reserveData.startDate.getTime())) /
-                          (1000 * 60 * 60 * 24) +
-                          ((props.reserveData.price *
-                            (props.reserveData.endDate.getTime() -
-                              props.reserveData.startDate.getTime())) /
-                            (1000 * 60 * 60 * 24)) *
-                            0.1 +
-                          ((props.reserveData.price *
-                            (props.reserveData.endDate.getTime() -
-                              props.reserveData.startDate.getTime())) /
-                            (1000 * 60 * 60 * 24)) *
-                            0.05
-                      ), 
+                    amount: (price * 100), 
                     customer_id: customer.customer_id,
                 }),
             }).then((resp) => {
@@ -70,10 +58,8 @@ export default function StripeContainer(props){
     }
 
     return (
-        
         <Elements stripe={stripeTestPromise} options={options}>
-            <CheckoutForm />
-            </Elements>
-         
+            <CheckoutForm reserveData={props.reserveData} hid={props.getHotelID.id} price={price}/>
+        </Elements>   
     )
 }
