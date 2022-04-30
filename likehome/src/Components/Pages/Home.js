@@ -22,7 +22,7 @@ function Home() {
 
         <div className="home-top-caption">
           <h1> WELCOME </h1>
-          <p>A perfect stay for everyone</p>
+          <p2>A perfect stay for everyone</p2>
         </div>
       </div>
 
@@ -30,76 +30,76 @@ function Home() {
         <h1>Check out some of our most beautiful places!</h1>
         <p>___________________________</p>
         <Slider {...settings} className="slider">
-          <div className="image1">
+          <div className="image">
             <h3>
-              <img src="./places/DJI_0079-1024x820.jpg" alt="" />
-              <p>Sovena Kiri, Koh Kood</p>
-              <p1>Thailand</p1>
+              <img src="./hotelpics/a232dd86.jpg" alt="" />
+              <p>Hyatt Centric Center City</p>
+              <p1>Philadelphia, PA</p1>
             </h3>
           </div>
-          <div className="image2">
+          <div className="image">
             <h3>
               <img
-                src="./places/anantara_al_jabal_al_akhdar_dianas_point_01_1920x1037.jpg"
+                src="./hotelpics/2c8f59ca.jpg"
                 alt=""
               />
-              <p>Anantara Al Jabal Al Akhdar Resort</p>
-              <p1>Oman</p1>
+              <p>TownePlace Suites</p>
+              <p1>Phoenix, AZ</p1>
             </h3>
           </div>
-          <div className="image3">
+          <div className="image">
             <h3>
-              <img src="./places/Aman-Venice_Dining-Hero-5.jpg" alt="" />
-              <p>Aman Venice</p>
-              <p1>Italy</p1>
+              <img src="./hotelpics/hotel-drisco.jpg" alt="" />
+              <p>Hotel Drisco</p>
+              <p1>San Francisco, CA</p1>
             </h3>
           </div>
-          <div className="image4">
+          <div className="image">
             <h3>
               <img
-                src="./places/HACIENDA+DE+SAN+ANTONIO_110ft+POOL_15+-+Photography+by+Davis+Gerber.jpg"
+                src="./hotelpics/337351560.jpg"
                 alt=""
               />
-              <p>Hacienda de San Antonio</p>
-              <p1>Mexico</p1>
+              <p>Victorian History Landmart</p>
+              <p1>San Jose, CA</p1>
             </h3>
           </div>
-          <div className="image5">
+          <div className="image">
             <h3>
-              <img src="./places/002929-06-Private-Sitout.jpg" alt="" />
-              <p>Taj Lake Palace</p>
-              <p1>India</p1>
+              <img src="./hotelpics/mediterranean-inn.jpg" alt="" />
+              <p>The Mediterranean Inn</p>
+              <p1>Seattle, WA</p1>
             </h3>
           </div>
-          <div className="image6">
+          <div className="image">
             <h3>
-              <img src="./places/lhorizon-palm-springs-main.jpg" alt="" />
-              <p>L'Horizon Hotel and Spa</p>
-              <p1>United States</p1>
+              <img src="./hotelpics/avanti-palms-resort-and.jpg" alt="" />
+              <p>Avanti Palms Resort And Conference Center</p>
+              <p1>Orlando, FL</p1>
             </h3>
           </div>
-          <div className="image7">
+          <div className="image">
             <h3>
-              <img src="./places/LHOTEL_MARRAKECH-Roof-Terrace-05.jpg" alt="" />
-              <p>L'Hôtel Marrakech</p>
-              <p1>Morroco</p1>
+              <img src="./hotelpics/dear-irving.jpg" alt="" />
+              <p>Aliz Hotel Times Square</p>
+              <p1>NYC, NY</p1>
             </h3>
           </div>
-          <div className="image8">
+          <div className="image">
             <h3>
-              <img src="./places/as-the-sun-goes-down.jpg" alt="" />
-              <p>Tierra Atacama</p>
-              <p1>Chile</p1>
+              <img src="./hotelpics/ff033257-166f-41e5-bbb6-174f830a45eb.jpg" alt="" />
+              <p>The Masterpiece Melrose Villa</p>
+              <p1>Hollywood, LA</p1>
             </h3>
           </div>
-          <div className="image9">
+          <div className="image">
             <h3>
               <img
-                src="./places/etosoto-formentera-espagne-baleares-exterieur-terrasse.jpg"
+                src="./hotelpics/lobby.jpg"
                 alt=""
               />
-              <p>Etosoto Villa</p>
-              <p1>Spain</p1>
+              <p>Element North Kansas City</p>
+              <p1>N Kansas City, MO</p1>
             </h3>
           </div>
         </Slider>

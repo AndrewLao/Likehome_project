@@ -37,7 +37,7 @@ img {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.home-top > p {
+.home-top > p2 {
   font-size: 32px;
   margin-top: 8px;
   text-align: center;
@@ -66,119 +66,16 @@ img {
   align-items: center;
 }
 
-.image1 > h3 > p {
+p {
   padding: 10px;
   font-size: 20px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.image1 > h3 > p1 {
+p1 {
   padding: 10px;
   font-size: 15px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: rgba(128, 128, 128, 0.671);
 }
 
-.image2 > h3 > p {
-  padding: 10px;
-  font-size: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.image2 > h3 > p1 {
-  padding: 10px;
-  font-size: 15px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: rgba(128, 128, 128, 0.671);
-}
-
-.image3 > h3 > p {
-  padding: 10px;
-  font-size: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.image3 > h3 > p1 {
-  padding: 10px;
-  font-size: 15px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: rgba(128, 128, 128, 0.671);
-}
-
-.image4 > h3 > p {
-  padding: 10px;
-  font-size: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.image4 > h3 > p1 {
-  padding: 10px;
-  font-size: 15px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: rgba(128, 128, 128, 0.671);
-}
-
-.image5 > h3 > p {
-  padding: 10px;
-  font-size: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.image5 > h3 > p1 {
-  padding: 10px;
-  font-size: 15px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: rgba(128, 128, 128, 0.671);
-}
-
-.image6 > h3 > p {
-  padding: 10px;
-  font-size: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.image6 > h3 > p1 {
-  padding: 10px;
-  font-size: 15px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: rgba(128, 128, 128, 0.671);
-}
-
-.image7 > h3 > p {
-  padding: 10px;
-  font-size: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.image7 > h3 > p1 {
-  padding: 10px;
-  font-size: 15px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: rgba(128, 128, 128, 0.671);
-}
-
-.image8 > h3 > p {
-  padding: 10px;
-  font-size: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.image8 > h3 > p1 {
-  padding: 10px;
-  font-size: 15px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: rgba(128, 128, 128, 0.671);
-}
-
-.image9 > h3 > p {
-  padding: 10px;
-  font-size: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.image9 > h3 > p1 {
-  padding: 10px;
-  font-size: 15px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: rgba(128, 128, 128, 0.671);
-}
