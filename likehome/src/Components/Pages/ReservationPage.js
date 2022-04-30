@@ -5,8 +5,11 @@ import StarIcon from "@mui/icons-material/Star";
 import { useHistory } from "react-router-dom";
 import { getSession } from "../../Backend/auth.js";
 import Axios from "axios"
-import config from "../../config"
+import config from "../../config";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+toast.configure();
 function Reservation(props) {
   let history = useHistory();
 
@@ -202,7 +205,7 @@ function Reservation(props) {
               {
                 handleCheckout();
               } else {
-                alert("Price is 0");
+                toast.error("Total is zero, please choose a start and end date to your stay", {position: toast.POSITION.BOTTOM_RIGHT});
               }
             }}
           >
