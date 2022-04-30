@@ -4,11 +4,7 @@
     margin: 20px;
     padding: 20px;
     border-bottom: 1px solid lightgrey;
-    cursor: pointer;
-}
-
-.searchResult:hover {
-    opacity: 0.8;
+    
 }
 
 .searchResult > img {
@@ -22,6 +18,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    font-size: 1.1vw;
     padding-left: 20px;
 
 }
@@ -29,6 +26,7 @@
 .searchResult__infoLeft {
     width: 64vw;
     margin-right: 4vw;
+    
 }
 
 .searchResult__infoLeft > h3 {
@@ -41,27 +39,21 @@
     font-size: 13px;
     color: grey;
 }
-/* .Collapse {
-    margin-top: 10px;
-    font-size: 13px;
-    color: grey;
-} */
-
-.searchResult__infoRight {
-    display: flex;
-    justify-content: right;
-}
-
-/* .searchResult__price > p {
-    text-align: right;
-} */
-    
 
 .searchResult__price {
+    position: absolute;
     display: inline-block;
     align-self: flex-end;
     text-align: center;
     font-size: 16px;
     margin-bottom: 14px;
-    color: dark-grey;
+    top: 50%;
+    color: dark-grey; 
+}
+
+.searchResult__reserve {
+    position: absolute;
+    justify-content: top;
+    padding-bottom: 150px;
+    top: 25%;
 }

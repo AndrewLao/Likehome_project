@@ -1,70 +1,145 @@
-import React from 'react'
-import './Account.css';
-function Account() {
-    return (
-        <div>
-            <div class="container">
-                <div class="grid">
-                    <div id="profile_picture">
-                        <div id="pic_img">
-                            <p> Picture </p>
-                        </div>
-                    </div>
-                    <div class="description">
-                        <h1 class = "text" id="welcome"> Welcome </h1>
-                        <p class = "text" id="username" > Zeta </p>
+import React, { useState, useEffect } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Divider from "@mui/material/Divider";
+import { useHistory } from "react-router-dom";
+import { getSession } from "../../Backend/auth.js";
+import "./Account.css";
+import Axios from "axios";
+import Button from "@mui/material/Button";
 
-                        <h2 class = "text" id="points">  You have xxx points. </h2>
-                        <button type="button" id="redeem"> Redeem Now </button>
-                    </div>
-                </div>
+function Account(props) {
+  let history = useHistory();
+
+  const [uid, setUid] = useState("");
+  const [user, setUser] = useState({
+    fname: "",
+    lname: "",
+    email: "",
+    points: 0,
+  });
+
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    isLoggedIn();
+  }, [props.status, uid]);
+
+  const isLoggedIn = async () => {
+    getSession()
+      .then((session) => {
+        //setUser({ ...user, id: session.idToken.payload.sub });
+        setUid(session.idToken.payload.sub);
+        Axios.get("http://localhost:3001/get-user", {
+          params: { id: uid },
+        }).then((res) => {
+          setUser({
+            id: res.data[0].id,
+            fname: res.data[0].fname,
+            lname: res.data[0].lname,
+            email: res.data[0].email,
+            points: res.data[0].points,
+          });
+        });
+        Axios.get("http://localhost:3001/get-reservations", {
+          params: { id: uid },
+        }).then((res) => {
+          console.log(res.data[0]);
+          setRows(res.data);
+          //res.data[0] arr of reservations
+        });
+        return true;
+      })
+      .catch((err) => {
+        setUid("");
+        history.push("./login");
+        return false;
+      });
+  };
+  return (
+    <div>
+      {isLoggedIn ? (
+        <>
+          <div class="title">
+            <h1 class="text" id="welcome">
+              {" "}
+              Welcome{" "}
+            </h1>
+            <div class="info">
+              <h3 class="text" id="username">
+                {" "}
+                Name{" "}
+              </h3>
+              <Divider />
+              <h4 class="name"> {user.fname + " " + user.lname} </h4>
             </div>
-            <div class="slides">
-                <div class="tab">
-                    <button id ="info" class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen">Account Information</button>
-                    <button id="reserve "class="tablink" onclick="openPage('Home', this, 'red')">Your Reservations</button>
-                    <button id="save" class="tablink" onclick="openPage('Contact', this, 'blue')">Your Saved Places</button>
-                </div>
-                <div id="information" class="tabcontent">
-                    <h3>Account Information</h3>
-                    <p>Get in touch, or swing by for a cup of coffee.</p>
-                </div>
-                <div id="reservations" class="tabcontent">
-                    <h3>Your Reservations</h3>
-                    <p>Home is where the heart is..</p>
-                </div>
-
-                <div id="saved" class="tabcontent">
-                    <h3>Your Saved Places</h3>
-                    <p>Some news this fine day!</p>
-                </div>
+            <div class="info">
+              <h3 class="text" id="mail">
+                {" "}
+                Email{" "}
+              </h3>
+              <Divider />
+              <h4 class="email"> {user.email} </h4>
             </div>
-        </div>
-    );
-
-    function openPage(pageName, elmnt, color) {
-        // Hide all elements with class="tabcontent" by default */
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
-        }
-
-        // Remove the background color of all tablinks/buttons
-        tablinks = document.getElementsByClassName("tablink");
-        for (i = 0; i < tablinks.length; i++) {
-          tablinks[i].style.backgroundColor = "";
-        }
-
-        // Show the specific tab content
-        document.getElementById(pageName).style.display = "block";
-
-        // Add the specific color to the button used to open the tab content
-        elmnt.style.backgroundColor = color;
-      }
-
-      // Get the element with id="defaultOpen" and click on it
-      document.getElementById("defaultOpen").click();
+            <div class="info">
+              <h3 class="text" id="points">
+                {" "}
+                Points{" "}
+              </h3>
+              <Divider />
+              <h4 class="email"> {user.points} </h4>
+            </div>
+          </div>
+          <div class="reservations">
+            <h1 class="text" id="reserve">
+              {" "}
+              Your Reservations{" "}
+            </h1>
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Date</TableCell>
+                    <TableCell align="right">Reservation ID</TableCell>
+                    <TableCell align="right">Hotel</TableCell>
+                    <TableCell align="right">Guests</TableCell>
+                    <TableCell align="right">Total&nbsp;($)</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => (
+                    <TableRow
+                      key={row.dates}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.reserveDateStart.substring(0, 10) +
+                          " - " +
+                          row.reserveDateEnd.substring(0, 10)}
+                      </TableCell>
+                      <TableCell align="right">{row.reserveid}</TableCell>
+                      <TableCell align="right">{props.hotels.find((e) => e.id === row.hotelid).hotelname}</TableCell>
+                      <TableCell align="right">{row.guests}</TableCell>
+                      <TableCell align="right">{row.totalprice}</TableCell>
+                      <TableCell><Button variant="contained" align="right" sx={{marginLeft: 3}} >Change</Button></TableCell>
+                      <TableCell><Button variant="contained" align="right" sx={{marginLeft: 3}} >Cancel</Button></TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
+    </div>
+  );
 }
 
 export default Account;
