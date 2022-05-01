@@ -10,7 +10,7 @@ import { BrowserRouter, Link, useHistory, useLocation } from "react-router-dom";
 import { logout } from "../../Backend/auth.js";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import { DateRangePicker } from "react-date-range";
+import { DateRange } from "react-date-range";
 
 function Header(props) {
   const [search, setSearch] = useState("");
@@ -177,7 +177,7 @@ function Header(props) {
       <div className="header__bottom">
         {isCalendarOpen && (
           <div className="header__calendar">
-            <DateRangePicker
+            <DateRange
               ranges={[selectionRange]}
               minDate={new Date()} // Minimum date is current date
               onChange={handleSelect}
