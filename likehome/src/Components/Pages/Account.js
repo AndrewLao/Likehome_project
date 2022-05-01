@@ -176,56 +176,59 @@ function Account(props) {
                       <TableCell align="right">{props.hotels.find((e) => e.id === row.hotelid).hotelname}</TableCell>
                       <TableCell align="right">{row.guests}</TableCell>
                       <TableCell align="right">{row.totalprice}</TableCell>
-                      <TableCell align="right">
+                      <TableCell align="right" sx={{display:'flex'}}>
+                          <div>
+                            <Button
+                              variant="contained"
+                              align="right"
+                              onClick={handleClickOpen}>
+                                Change
+                            </Button>
+                            
+                            <Dialog open={open} onClose={handleClose}>
+                              <DialogContent>
 
-                          <Button
-                            variant="contained"
-                            align="right"
-                            onClick={handleClickOpen}>
-                              Change
-                          </Button>
-                          
-                          <Dialog open={open} onClose={handleClose}>
-                            <DialogContent>
-
-                                <DateRange
-                                  ranges={[selectionRange]}
-                                  minDate={new Date()} // Minimum date is current date
-                                  onChange={handleSelect}
-                                />
-                                <div className="account__guests">
-                                  <h2 className="account__calendarGuests">Number of Guests</h2>
-                                  <PersonIcon />
-                                  <input
-                                    className="guest__selector"
-                                    type="number"
-                                    value={noOfGuests}
-                                    onChange={(event) => handleGuests(event.target.value)}
-                                    min={1}
+                                  <DateRange
+                                    ranges={[selectionRange]}
+                                    minDate={new Date()} // Minimum date is current date
+                                    onChange={handleSelect}
                                   />
-                                </div>
+                                  <div className="account__guests">
+                                    <h2 className="account__calendarGuests">Number of Guests</h2>
+                                    <PersonIcon />
+                                    <input
+                                      className="guest__selector"
+                                      type="number"
+                                      value={noOfGuests}
+                                      onChange={(event) => handleGuests(event.target.value)}
+                                      min={1}
+                                    />
+                                  </div>
 
-                                <div className="button__box">
-                                  <Button
-                                    variant="outlined"
-                                    className="calendar__buttons"
-                                    onClick={handleClose}
-                                  >
-                                    Cancel
-                                  </Button>
-                                  <Button
-                                    variant="contained"
-                                    className="calendar__buttons"
-                                    onClick={handleClose}
-                                  >
-                                    Confirm
-                                  </Button>
-                                </div>
+                                  <div className="button__box">
+                                    <Button
+                                      variant="outlined"
+                                      className="calendar__buttons"
+                                      onClick={handleClose}
+                                    >
+                                      Cancel
+                                    </Button>
+                                    <Button
+                                      variant="contained"
+                                      className="calendar__buttons"
+                                      onClick={handleClose}
+                                    >
+                                      Confirm
+                                    </Button>
+                                  </div>
 
-                            </DialogContent>
-                          </Dialog>
-
-                        <Button variant="contained" align="right">Cancel</Button>
+                              </DialogContent>
+                            </Dialog>
+                          </div>
+                          <div>
+                          <Button variant="contained" align="right">Cancel</Button>
+                          </div>
+                        
                         </TableCell>
 
                     </TableRow>
