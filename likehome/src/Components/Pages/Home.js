@@ -22,7 +22,7 @@ function Home() {
 
         <div className="home-top-caption">
           <h1> WELCOME </h1>
-          <p2>A perfect stay for everyone</p2>
+          <p>A perfect stay for everyone</p>
         </div>
       </div>
 
@@ -31,76 +31,76 @@ function Home() {
         <p>___________________________</p>
         <Slider {...settings} className="slider">
           <div className="image">
-            <h3>
+
               <img src="./hotelpics/a232dd86.jpg" alt="" />
               <p>Hyatt Centric Center City</p>
               <p1>Philadelphia, PA</p1>
-            </h3>
+            
           </div>
-          <div className="image">
-            <h3>
+          <div className="image1">
+            
               <img
                 src="./hotelpics/2c8f59ca.jpg"
                 alt=""
               />
               <p>TownePlace Suites</p>
               <p1>Phoenix, AZ</p1>
-            </h3>
+            
           </div>
-          <div className="image">
-            <h3>
+          <div className="image2">
+            
               <img src="./hotelpics/hotel-drisco.jpg" alt="" />
               <p>Hotel Drisco</p>
               <p1>San Francisco, CA</p1>
-            </h3>
+            
           </div>
-          <div className="image">
-            <h3>
+          <div className="image3">
+            
               <img
                 src="./hotelpics/337351560.jpg"
                 alt=""
               />
               <p>Victorian History Landmart</p>
               <p1>San Jose, CA</p1>
-            </h3>
+            
           </div>
-          <div className="image">
-            <h3>
+          <div className="image4">
+            
               <img src="./hotelpics/mediterranean-inn.jpg" alt="" />
               <p>The Mediterranean Inn</p>
               <p1>Seattle, WA</p1>
-            </h3>
+            
           </div>
-          <div className="image">
-            <h3>
+          <div className="image5">
+            
               <img src="./hotelpics/avanti-palms-resort-and.jpg" alt="" />
               <p>Avanti Palms Resort And Conference Center</p>
               <p1>Orlando, FL</p1>
-            </h3>
+            
           </div>
-          <div className="image">
-            <h3>
+          <div className="image6">
+            
               <img src="./hotelpics/dear-irving.jpg" alt="" />
               <p>Aliz Hotel Times Square</p>
               <p1>NYC, NY</p1>
-            </h3>
+            
           </div>
-          <div className="image">
-            <h3>
+          <div className="image7">
+            
               <img src="./hotelpics/ff033257-166f-41e5-bbb6-174f830a45eb.jpg" alt="" />
               <p>The Masterpiece Melrose Villa</p>
               <p1>Hollywood, LA</p1>
-            </h3>
+            
           </div>
-          <div className="image">
-            <h3>
+          <div className="image8">
+            
               <img
                 src="./hotelpics/lobby.jpg"
                 alt=""
               />
               <p>Element North Kansas City</p>
               <p1>N Kansas City, MO</p1>
-            </h3>
+            
           </div>
         </Slider>
       </div>

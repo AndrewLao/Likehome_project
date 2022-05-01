@@ -49,9 +49,13 @@ function Reservation(props) {
   return (
     <>
     {props.reserveData.title === "" ? history.push("./catalog") : <div className="reservation_page">
-      <h1>{props.reserveData.title}</h1>
+      
+      <div className="reservation_title">
+        <h1>{props.reserveData.title}</h1>
+      </div>
 
       <div className="reservation_review_info">
+
         <StarIcon
           style={{
             color: "#72aee6",
@@ -76,10 +80,7 @@ function Reservation(props) {
           </p6>
         </div>
       </div>
-
-      <p3>
-        _____________________________________________________________________________________________________________________________________________________________
-      </p3>
+      
 
       <div className="reservation_details">
         <h3>Included with Your Stay</h3>
@@ -90,9 +91,7 @@ function Reservation(props) {
         <p5>{props.reserveData.facilities}</p5>
       </div>
 
-      <p3>
-        _____________________________________________________________________________________________________________________________________________________________
-      </p3>
+      
 
       <div className="reservation_review">
         <div className="review_left">
@@ -110,9 +109,7 @@ function Reservation(props) {
         </div>
       </div>
 
-      <p3>
-        _____________________________________________________________________________________________________________________________________________________________
-      </p3>
+      
 
       <div className="reservation_price">
         <div className="price_left">
@@ -214,9 +211,7 @@ function Reservation(props) {
         </div>
       </div>
 
-      <p3>
-        _____________________________________________________________________________________________________________________________________________________________
-      </p3>
+      
     </div>} 
     </>
   );
