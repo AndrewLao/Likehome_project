@@ -98,7 +98,13 @@ function SearchResult({
       {/* Right portion of info card */}
       <div>
         <div className="searchResult__reserve">
-          <Button variant="contained" onClick={reserving}>
+          <Button 
+          variant="contained" 
+          style={{
+              backgroundColor:"rgba(0, 139, 139, 0.7)",
+
+            }}
+            onClick={reserving}>
             Reserve
           </Button>
         </div>

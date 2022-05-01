@@ -45,7 +45,11 @@
     display: inline-block;
     align-self: flex-end;
     text-align: center;
-    font-size: 16px;
+    font-size: 15px;
+    /* font size was 16,added padding-top and padding-right, set text wrap none */
+    padding-right: 10px;
+    padding-top: 20px;
+    white-space: nowrap;
     margin-bottom: 14px;
     top: 50%;
     color: dark-grey; 

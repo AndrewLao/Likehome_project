@@ -49,16 +49,21 @@ function Reservation(props) {
   return (
     <>
     {props.reserveData.title === "" ? history.push("./catalog") : <div className="reservation_page">
-      <h1>{props.reserveData.title}</h1>
+      
+      <div className="reservation_title">
+        <h1>{props.reserveData.title}</h1>
+      </div>
 
       <div className="reservation_review_info">
+
         <StarIcon
           style={{
-            color: "#72aee6",
+            color: "rgba(0, 139, 139, 0.7)",
           }}
         ></StarIcon>
 
-        <p1>{props.reserveData.rating}</p1>
+        <p1>{props.reserveData.rating} ·{" "}
+            <i>{props.reserveData.location}</i></p1>
       </div>
 
       <div className="reservation_top">
@@ -71,15 +76,14 @@ function Reservation(props) {
           <br />
           <p2>{props.reserveData.description}</p2>
           <p6>
-            <b>${props.reserveData.price}</b> / night ·{" "}
-            <i>{props.reserveData.location}</i>
+            <b 
+            style={{
+              fontSize:"25px",
+            }}>${props.reserveData.price}</b> / night 
           </p6>
         </div>
       </div>
-
-      <p3>
-        _____________________________________________________________________________________________________________________________________________________________
-      </p3>
+      
 
       <div className="reservation_details">
         <h3>Included with Your Stay</h3>
@@ -90,9 +94,7 @@ function Reservation(props) {
         <p5>{props.reserveData.facilities}</p5>
       </div>
 
-      <p3>
-        _____________________________________________________________________________________________________________________________________________________________
-      </p3>
+      
 
       <div className="reservation_review">
         <div className="review_left">
@@ -110,9 +112,7 @@ function Reservation(props) {
         </div>
       </div>
 
-      <p3>
-        _____________________________________________________________________________________________________________________________________________________________
-      </p3>
+      
 
       <div className="reservation_price">
         <div className="price_left">
@@ -193,7 +193,9 @@ function Reservation(props) {
             style={{
               borderRadius: 35,
               marginTop: "60px",
-              backgroundColor: "#72aee6",
+              backgroundColor:"rgba(0, 139, 139, 0.7)",
+              boxShadow: "0 2px 4px rgba(0, 139, 139, 0.7)"
+              //backgroundColor: "#72aee6",
             }}
             variant="contained"
             onClick={() => {
@@ -214,9 +216,7 @@ function Reservation(props) {
         </div>
       </div>
 
-      <p3>
-        _____________________________________________________________________________________________________________________________________________________________
-      </p3>
+      
     </div>} 
     </>
   );

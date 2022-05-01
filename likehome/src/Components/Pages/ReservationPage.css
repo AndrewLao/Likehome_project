@@ -5,23 +5,34 @@
     margin-bottom:50px;
 }
 
+.reservation_title > h1{
+    padding-top: 2vh;
+}
+
 .reservation_review_info {
     display: flex;
     margin-top: 10px;
     align-items: center;
+    padding-bottom:3vh;
+    border-bottom: 1px solid lightgrey;
 }
 
 .reservation_top{
     display:flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top:20px;
     align-items:center;
+    border-bottom: 1px solid lightgrey;
+    padding-top:35px;
+    padding-bottom:35px;
 }
 
 .reservation_top_left{
     width: 64vw;
     margin-right:20px;
+    /*added padding*/
+    padding-right: 40px;
+    
 }
 
 .reservation_top_left > img {
@@ -29,26 +40,40 @@
     height: 380px;
     width: 480px;
     overflow: hidden;
+    /*rgba(0,0,0,0.18)*/
 }
 
 .reservation_top_right{
     display:flex;
     flex-direction:column;
+    /*added padding*/
+    padding-left:40px;
+    padding-right:40px;
+    margin-top:15px;
+    padding-top:20px;
     justify-content:right;
-    align-items:center;
+    align-items:normal;
     width:64vw;
     margin-bottom:40px;
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgba(0, 139, 139, 0.7);
 }
    
-
-.reservation_top_right > h2{
-    margin-right:80px;
-    padding-bottom:20px;
+.reservation_top_right >p6{
+    padding-top:40px;
+    margin-bottom:20px;
 }
 
-.reservation_top_right > p6{
-    padding-top:40px;
+/*added css for p2*/
 
+.reservation_top_right >p2{
+    font-size:0.80vw;
+    font-family:cera-round-pro, "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+.reservation_top_right >h2 {
+    font-family:cera-round-pro, "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    align-self: center;
 }
 
 .reservation_page >p3 {
@@ -62,8 +87,11 @@
 .reservation_details{
     display:flex;
     flex-direction:column;
-    margin-bottom:30px;
+    border-bottom: 1px solid lightgrey;
+    padding-top:60px;
+    padding-bottom:60px;
 }
+
 
 
 p4 {
@@ -80,8 +108,10 @@ p7 {
 .reservation_review{
     display:flex;
     flex-direction:row;
-    margin-bottom:30px;
     align-items:center;
+    border-bottom: 1px solid lightgrey;
+    padding-top:60px;
+    padding-bottom:60px;
 }
 
 .review_left{
@@ -102,8 +132,10 @@ p7 {
 .reservation_price{
     display:flex;
     flex-direction:row;
-    margin-bottom:30px;
     justify-content: space-between;
+    border-bottom: 1px solid lightgrey;
+    padding-top:60px;
+    padding-bottom:60px;
 }
 
 .price_left{

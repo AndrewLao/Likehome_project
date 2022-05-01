@@ -10,7 +10,7 @@ import { BrowserRouter, Link, useHistory, useLocation } from "react-router-dom";
 import { logout } from "../../Backend/auth.js";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import { DateRangePicker } from "react-date-range";
+import { DateRange } from "react-date-range";
 
 function Header(props) {
   const [search, setSearch] = useState("");
@@ -128,12 +128,15 @@ function Header(props) {
         <div className="header__center">
           <input
             type="text"
-            placeholder="Begin your search here!"
+            placeholder= "Begin your search here!"
+            style={{
+              fontWeight:"bold"
+            }}
             value={search}
             onClick={() => setCalendarOpen(true)}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <SearchIcon />
+          <SearchIcon style={{backgroundColor:"rgba(0, 139, 139, 0.7)", color:"white", borderRadius:"30px", padding:"8px"}} />
         </div>
 
         <div className="header__right">
@@ -177,7 +180,7 @@ function Header(props) {
       <div className="header__bottom">
         {isCalendarOpen && (
           <div className="header__calendar">
-            <DateRangePicker
+            <DateRange
               ranges={[selectionRange]}
               minDate={new Date()} // Minimum date is current date
               onChange={handleSelect}
