@@ -100,6 +100,7 @@ function Account(props) {
     key: "selection",
   };
 
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -187,7 +188,7 @@ function Account(props) {
                           
                           <Dialog open={open} onClose={handleClose}>
                             <DialogContent>
-
+              
                                 <DateRange
                                   ranges={[selectionRange]}
                                   minDate={new Date()} // Minimum date is current date
@@ -221,7 +222,7 @@ function Account(props) {
                                     Confirm
                                   </Button>
                                 </div>
-
+                              
                             </DialogContent>
                           </Dialog>
 
