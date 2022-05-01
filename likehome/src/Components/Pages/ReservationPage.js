@@ -22,7 +22,7 @@ function Reservation(props) {
             if (!res) {
               history.push("./payment-form");
             } else {
-              console.log("Already reserved");
+              toast.error("You already have a reservation for these dates", {position: toast.POSITION.BOTTOM_RIGHT});
             }
         });
       })

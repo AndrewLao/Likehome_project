@@ -52,7 +52,7 @@
 }
 
 .searchResult__reserve {
-    position: absolute;
+    position: relative;
     justify-content: top;
     padding-bottom: 150px;
     top: 25%;

@@ -103,7 +103,7 @@ function App() {
           </Route>
 
           <Route path="/account">
-            <Account hotels={hotels} />
+            <Account status={status} hotels={hotels} />
           </Route>
 
           <Route path="/catalog">
@@ -117,7 +117,7 @@ function App() {
           </Route>
 
           <Route path="/payment-form">
-            <StripeContainer reserveData={reserveData} getHotelID={getHotelID()} fname={status.fname} lname={status.lname}/>
+            <StripeContainer reserveData={reserveData} getHotelID={getHotelID()} fname={status.fname} lname={status.lname} id={status.sub}/>
           </Route>
 
           <Route path="/thank-you">

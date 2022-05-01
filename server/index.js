@@ -69,19 +69,17 @@ app.get('/user', (req, res) => {
 
 // create reservation in db
 app.post("/create-reservation", (req, res) => {
-  db.query(
-    "INSERT INTO reservations (userid, hotelid, reserveDateStart, reserveDateEnd, guests, totalprice, cancelFee) VALUES (?, ?, DATE ?,DATE ?, ?, ?, ?)",
-    [
-      req.body.userid,
-      req.body.hotelid,
-      req.body.reserveDateStart,
-      req.body.reserveDateEnd,
-      req.body.guests,
-      req.body.totalprice,
-      req.body.cancelFee,
-    ],
+  const userid = req.body.params.userid;
+  const hotelid = req.body.params.hotelid;
+  const startDate = req.body.params.reserveDateStart.substring(0,10);
+  const endDate = req.body.params.reserveDateEnd.substring(0,10);
+  const guests = req.body.params.guests;
+  const total = req.body.params.total;
+  const fee = req.body.params.fee;
 
-    (err, result) => {
+  let query = "INSERT INTO reservations (userid, hotelid, reserveDateStart, reserveDateEnd, guests, totalprice, cancelFee) VALUES (?, ?, DATE ?,DATE ?, ?, ?, ?)";
+  db.query(
+    query, [userid, hotelid, startDate, endDate, guests, total, fee], (err, result) => {
       if (err) {
         console.log(err);
       } else {
@@ -91,7 +89,7 @@ app.post("/create-reservation", (req, res) => {
   );
 });
 
-// 
+// check for multiple reservations under the same date
 app.get("/multiple-reservation-check", (req, res) => {
   
   let start = req.query.startDate.substring(0,10);
@@ -150,46 +148,65 @@ app.get("/get-hotels-filtered", (req, res) => {
   });
 });
 
+// update date of reservation
+app.put("/update-reservation", (req, res) => {
+  const startDate = req.body.params.reserveDateStart.substring(0,10);
+  const endDate = req.body.params.reserveDateEnd.substring(0,10);
+  const reserveid = req.body.params.reserverid;
+  const sqlUpdate = "UPDATE reservations SET reserveDateStart=DATE '" + startDate + "', reserveDateEnd='" + endDate + "' WHERE reserveid=" + reserveid; 
+  db.query(
+    sqlUpdate, (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(results);
+      }
+    }
+  );
+});
+
+// add points
+app.put("/point-add", cors(), async (req, res) => {
+  const sqlUpdate = "UPDATE users SET points = points + " + req.body.params.points + " WHERE id='" + req.body.params.userid + "'";
+  db.query(
+    sqlUpdate, (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(results);
+      }
+    }
+  );
+
+});
+
+// create new customer for stripe
 app.post("/customer", async (req, res) => {
   
   const customer = await stripe.customers.create({
     name: req.body.fullname,
   });
   return res.send({ customer_id: customer.id });
-	// try {
-	// 	const payment = await stripe.paymentIntents.create({
-	// 		amount,
-	// 		currency: "USD",
-	// 		description: "LikeHome",
-  //           customer: customer_id,
-  //           // payment_method: id,
-	// 		// confirm: true
-	// 	})
-	// 	console.log("Payment", payment)
-	// 	res.json({
-  //           clientSecret: payment.client_secret,
-	// 		message: "Payment successful",
-	// 		success: true
-	// 	})
-	// } catch (error) {
-	// 	console.log("Error", error)
-	// 	res.json({
-	// 		message: "Payment failed",
-	// 		success: false
-	// 	})
-	// }
 });
 
 // handle point payments
-app.post("/point-payment", cors(), async (req, res) => {
-	let { email } = req.body;
-
-  console.log(email);
+app.put("/point-payment", cors(), async (req, res) => {
+  const sqlUpdate = "UPDATE users SET points = points - " + req.body.params.points + " WHERE id='" + req.body.params.userid + "'";
+  db.query(
+    sqlUpdate, (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(results);
+      }
+    }
+  );
 
 });
 
 app.post("/payment", cors(), async (req, res) => {
-  let { amount, customer_id } = req.body;
+  let amount = req.body.amount;
+  let customer_id = req.body.customer_id;
 
   console.log(amount);
   try {
@@ -207,6 +224,7 @@ app.post("/payment", cors(), async (req, res) => {
       message: "Payment successful",
       success: true,
     });
+
   } catch (error) {
     console.log("Error", error);
     res.json({
@@ -214,6 +232,7 @@ app.post("/payment", cors(), async (req, res) => {
       success: false,
     });
   }
+  
 });
 
 // default server port 3001

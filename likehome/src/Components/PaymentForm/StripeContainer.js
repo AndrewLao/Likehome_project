@@ -53,13 +53,12 @@ export default function StripeContainer(props){
         clientSecret,
     }
 
-    if (!clientSecret) {
-        return <div />;
-    }
-
     return (
+    <>{clientSecret ? 
         <Elements stripe={stripeTestPromise} options={options}>
             <CheckoutForm reserveData={props.reserveData} hid={props.getHotelID.id} price={price}/>
-        </Elements>   
+        </Elements>   : <></>}
+    </>
+        
     )
 }

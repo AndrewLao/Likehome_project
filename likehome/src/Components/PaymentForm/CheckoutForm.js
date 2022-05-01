@@ -1,6 +1,6 @@
 import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
 import { Button, TextField } from '@mui/material';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import config from '../../config';
 import { useHistory } from 'react-router-dom';
 import "./CheckoutForm.css";
@@ -14,20 +14,15 @@ const fields = [
 ];
 
 const useUser = () => {
-  const [user, setUser] = React.useState(null);
+  const [user, setUser] = useState(null);
   let history = useHistory();
-  // React.useEffect(() => {
-  //   const username = localStorage.getItem('username');
-  //   fetch(config.apiUrl + '/user?email=' + username).then((res) => res.json()).then((data) => {
-  //     setUser(data);
-  //   });
-  // }, []);
+  
   getSession()
       .then((session) => {
-        Axios.get("http://localhost:3001/get-user", {
+        Axios.get(`${config.apiUrl}/get-user`, {
           params: { id: session.idToken.payload.sub },
         }).then((res) => {
-          setUser({points: res.data[0].points});
+          setUser({id: session.idToken.payload.sub, points: res.data[0].points});
         });
       })
       .catch((err) => { // if no session redirect to login
@@ -41,13 +36,13 @@ const useUser = () => {
 const CheckoutForm = (props) => {
   const stripe = useStripe();
   const elements = useElements();
-  const [form, setForm ] = React.useState({
+  const [form, setForm ] = useState({
       name: '',
   })
   const history = useHistory();
-  const [payMethod, setPayMethod] = React.useState('card');
+  const [payMethod, setPayMethod] = useState('card');
   const user = useUser();
-  const [error, setError] = React.useState(null);
+  const [error, setError] = useState(null);
 
   const handleOnChange = (evt) => {
       setForm(prevState => ({
@@ -63,75 +58,52 @@ const CheckoutForm = (props) => {
       // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
-
+    
     const result = await stripe.confirmPayment({
       //`Elements` instance that was used to create the Payment Element
       elements,
-      confirmParams: {
-
-        /**
-         * req.body.userid,
-      req.body.hotelid,
-      req.body.reserveDateStart,
-      req.body.reserveDateEnd,
-      req.body.guests,
-      req.body.totalprice,
-      req.body.cancelFee,
-        const [reserveData, setReserveData] = useState({
-    img: "",
-    location: "",
-    title: "",
-    description: "",
-    price: 0,
-    rating: 0,
-    facilities: "",
-    amenities: "",
-    startDate: "",
-    endDate: "",
-    noOfGuests: 0,
-  });
-         */
-        //props.hid is hotel id. MAKE A POST REQUEST HERE TO MAKE THE RESERVATION
-        
-
-        return_url: "http://localhost:3000/thank-you",
-      },
-    });
-
+      redirect: "if_required" //makes it so that return_url is not required
+    })
     if (result.error) {
-      // Show error to your customer (for example, payment details incomplete)
       console.log(result.error.message);
-    } else {
-      // Your customer will be redirected to your `return_url`. For some payment
-      // methods like iDEAL, your customer will be redirected to an intermediate
-      // site first to authorize the payment, then redirected to the `return_url`.
+    } else { 
+      Axios.post(`${config.apiUrl}/create-reservation`, {
+          params: { userid: user.id, hotelid: props.hid, reserveDateStart: props.reserveData.startDate, 
+            reserveDateEnd: props.reserveData.endDate, guests: props.reserveData.noOfGuests, total: props.price, fee: 50},
+        }).then((res) => {
+          Axios.put(`${config.apiUrl}/point-add`, {
+            params: {userid: user.id, points: props.price},
+          }).then((res) => {
+            console.log("payment successful")
+            history.push('/thank-you');
+          });
+        });
     }
   }
 
   const payWithPoints = () => {
     setError(null);
+    if (user.points >= props.price) {
+      Axios.put(`${config.apiUrl}/point-payment`, {
+        params: {userid: user.id, points: props.price},
+      }).then((res) => {
+        console.log("payment successful")
+        history.push('/thank-you');
+      });
+      //After subtracting points, make a post request to create reservation
+      Axios.post(`${config.apiUrl}/create-reservation`, {
+        params: { userid: user.id, hotelid: props.hid, reserveDateStart: props.reserveData.startDate, 
+          reserveDateEnd: props.reserveData.endDate, guests: props.reserveData.noOfGuests, total: props.price, fee: 50},
+      }).then((res) => {
+        console.log("payment successful")
+        history.push('/thank-you');
+      });
+    } else {
+      console.log("not enough points");
+    }
+    
+    
 
-    // fetch(config.apiUrl + '/point-payment', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     email: localStorage.getItem('username')
-    //   })
-    // }).then((res) => {
-    //   return res.json();
-    // }).then((data) => {
-    //   if (!data.success) {
-    //     return setError(data.message);;
-    //   }
-
-
-
-
-
-      //props.hid is hotel id. MAKE A POST REQUEST HERE TO MAKE THE RESERVATION
-      history.push('/thank-you');
     // }).catch((e) => {
     //   setError(e.response.data.message);
     // })
@@ -144,7 +116,15 @@ const CheckoutForm = (props) => {
 
 
     if (payMethod === 'card') {
-      payWithStripe();
+      const res = await payWithStripe();
+      if (res === null) {
+        Axios.post(`${config.apiUrl}/create-reservation`, {
+          params: { userid: user.id, hotelid: props.hid, reserveDateStart: props.reserveData.startDate, 
+            reserveDateEnd: props.reserveData.endDate, guests: props.reserveData.noOfGuests, totalprice: props.price, cancelFee: 50},
+        }).then((res) => {
+          console.log("payment successful")
+        });
+      }
     } else if (payMethod === 'points') {
       payWithPoints();
     }
@@ -152,17 +132,6 @@ const CheckoutForm = (props) => {
 
     return (   
         <div class="center-screen">
-            {/* <div class="order-summary">
-                <div class="add-space">
-                    <p>Order Total:</p>
-                </div>
-                <div class="add-space">
-                    <p>${props.price}</p>
-                </div>
-                <div class="add-space">
-                    <button variant="outlined" onClick={() => setPayMethod('points')}>Apply Points</button>
-                </div>
-            </div> */}
         <p>Order Total: {payMethod === 'card' ? ("$"+props.price) : (props.price+" points")} <Button onClick={() => {
           payMethod === 'card' ? setPayMethod('points') : setPayMethod('card')
         }}>{payMethod === 'card' ? "Apply Points" : "Pay With Card"}</Button><br/><br/><br/></p>

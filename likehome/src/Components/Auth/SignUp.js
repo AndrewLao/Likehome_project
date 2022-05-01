@@ -6,6 +6,7 @@ import "./LoginSignup.css";
 import { signup } from "../../Backend/auth.js";
 import { useHistory } from "react-router-dom";
 import Axios from "axios";
+import config from "../../config"
 
 // handles signup with congnito
 function SignUp() {
@@ -26,7 +27,7 @@ function SignUp() {
   const handleSubmit = async (e) => {
     signup(cred.firstName, cred.lastName, cred.email, cred.password)
       .then((data) => {
-        Axios.post('http://localhost:3001/create-user', {
+        Axios.post(`${config.apiUrl}/create-user`, {
           id: data.userSub, 
           fname: cred.firstName, 
           lname: cred.lastName, 

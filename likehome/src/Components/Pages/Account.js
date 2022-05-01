@@ -12,6 +12,7 @@ import { getSession } from "../../Backend/auth.js";
 import "./Account.css";
 import Axios from "axios";
 import Button from "@mui/material/Button";
+import config from "../../config"
 
 function Account(props) {
   let history = useHistory();
@@ -35,7 +36,7 @@ function Account(props) {
       .then((session) => {
         //setUser({ ...user, id: session.idToken.payload.sub });
         setUid(session.idToken.payload.sub);
-        Axios.get("http://localhost:3001/get-user", {
+        Axios.get(`${config.apiUrl}/get-user`, {
           params: { id: uid },
         }).then((res) => {
           setUser({
@@ -46,10 +47,10 @@ function Account(props) {
             points: res.data[0].points,
           });
         });
-        Axios.get("http://localhost:3001/get-reservations", {
+        Axios.get(`${config.apiUrl}/get-reservations`, {
           params: { id: uid },
         }).then((res) => {
-          console.log(res.data[0]);
+          //console.log(res.data[0]);
           setRows(res.data);
           //res.data[0] arr of reservations
         });
