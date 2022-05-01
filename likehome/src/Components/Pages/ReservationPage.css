@@ -32,6 +32,7 @@
     margin-right:20px;
     /*added padding*/
     padding-right: 40px;
+    
 }
 
 .reservation_top_left > img {
@@ -39,6 +40,7 @@
     height: 380px;
     width: 480px;
     overflow: hidden;
+    /*rgba(0,0,0,0.18)*/
 }
 
 .reservation_top_right{
@@ -46,15 +48,20 @@
     flex-direction:column;
     /*added padding*/
     padding-left:40px;
+    padding-right:40px;
+    margin-top:15px;
     padding-top:20px;
     justify-content:right;
-    align-items:center;
+    align-items:normal;
     width:64vw;
     margin-bottom:40px;
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgba(0, 139, 139, 0.7);
 }
    
 .reservation_top_right >p6{
     padding-top:40px;
+    margin-bottom:20px;
 }
 
 /*added css for p2*/
@@ -66,6 +73,7 @@
 
 .reservation_top_right >h2 {
     font-family:cera-round-pro, "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    align-self: center;
 }
 
 .reservation_page >p3 {

@@ -193,7 +193,8 @@ function Reservation(props) {
             style={{
               borderRadius: 35,
               marginTop: "60px",
-              backgroundColor:"rgba(0, 139, 139, 0.7)"
+              backgroundColor:"rgba(0, 139, 139, 0.7)",
+              boxShadow: "0 2px 4px rgba(0, 139, 139, 0.7)"
               //backgroundColor: "#72aee6",
             }}
             variant="contained"
