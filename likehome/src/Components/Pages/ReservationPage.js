@@ -58,11 +58,12 @@ function Reservation(props) {
 
         <StarIcon
           style={{
-            color: "#72aee6",
+            color: "rgba(0, 139, 139, 0.7)",
           }}
         ></StarIcon>
 
-        <p1>{props.reserveData.rating}</p1>
+        <p1>{props.reserveData.rating} ·{" "}
+            <i>{props.reserveData.location}</i></p1>
       </div>
 
       <div className="reservation_top">
@@ -75,8 +76,10 @@ function Reservation(props) {
           <br />
           <p2>{props.reserveData.description}</p2>
           <p6>
-            <b>${props.reserveData.price}</b> / night ·{" "}
-            <i>{props.reserveData.location}</i>
+            <b 
+            style={{
+              fontSize:"25px",
+            }}>${props.reserveData.price}</b> / night 
           </p6>
         </div>
       </div>
@@ -190,7 +193,8 @@ function Reservation(props) {
             style={{
               borderRadius: 35,
               marginTop: "60px",
-              backgroundColor: "#72aee6",
+              backgroundColor:"rgba(0, 139, 139, 0.7)"
+              //backgroundColor: "#72aee6",
             }}
             variant="contained"
             onClick={() => {

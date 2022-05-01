@@ -100,7 +100,6 @@ function Account(props) {
     key: "selection",
   };
 
-
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -109,6 +108,17 @@ function Account(props) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  //variables for cancel button
+  const [openCancel, setOpenCancel] = React.useState(false);
+
+  const handleClickOpenCancel = () => {
+    setOpenCancel(true);
+  };
+
+  const handleCloseCancel = () => {
+    setOpenCancel(false);
   };
 
   return (
@@ -178,41 +188,32 @@ function Account(props) {
                       <TableCell align="right">{row.guests}</TableCell>
                       <TableCell align="right">{row.totalprice}</TableCell>
                       <TableCell align="right" sx={{display:'flex'}}>
-                          <div>
-                            <Button
-                              variant="contained"
-                              align="right"
-                              onClick={handleClickOpen}>
-                                Change
-                            </Button>
+                          <div className="account_buttons">
+
+                            <div>
+                              <Button
+                                style={{
+                                  padding:'10px',
+                                  margin:'5px',
+                                  borderRadius:"30px",
+                                  backgroundColor:"rgba(0, 139, 139, 0.7)",
+                                  
+                                }}
+                          
+                                variant="contained"
+                                align="right"
+                                onClick={handleClickOpen}>
+                                  Change
+                              </Button>
+                            </div>
                             
                             <Dialog open={open} onClose={handleClose}>
                               <DialogContent>
 
-                          <Button
-                            variant="contained"
-                            align="right"
-                            onClick={handleClickOpen}>
-                              Change
-                          </Button>
-                          
-                          <Dialog open={open} onClose={handleClose}>
-                            <DialogContent>
-              
-                                <DateRange
-                                  ranges={[selectionRange]}
-                                  minDate={new Date()} // Minimum date is current date
-                                  onChange={handleSelect}
-                                />
-                                <div className="account__guests">
-                                  <h2 className="account__calendarGuests">Number of Guests</h2>
-                                  <PersonIcon />
-                                  <input
-                                    className="guest__selector"
-                                    type="number"
-                                    value={noOfGuests}
-                                    onChange={(event) => handleGuests(event.target.value)}
-                                    min={1}
+                                  <DateRange
+                                    ranges={[selectionRange]}
+                                    minDate={new Date()} // Minimum date is current date
+                                    onChange={handleSelect}
                                   />
                                   <div className="account__guests">
                                     <h2 className="account__calendarGuests">Number of Guests</h2>
@@ -226,29 +227,6 @@ function Account(props) {
                                     />
                                   </div>
 
-<<<<<<< HEAD
-                                <div className="button__box">
-                                  <Button
-                                    variant="outlined"
-                                    className="calendar__buttons"
-                                    onClick={handleClose}
-                                  >
-                                    Cancel
-                                  </Button>
-                                  <Button
-                                    variant="contained"
-                                    className="calendar__buttons"
-                                    onClick={handleClose}
-                                  >
-                                    Confirm
-                                  </Button>
-                                </div>
-                              
-                            </DialogContent>
-                          </Dialog>
-
-                        <Button variant="contained" align="right">Cancel</Button>
-=======
                                   <div className="button__box">
                                     <Button
                                       variant="outlined"
@@ -268,12 +246,47 @@ function Account(props) {
 
                               </DialogContent>
                             </Dialog>
-                          </div>
+
                           <div>
-                          <Button variant="contained" align="right">Cancel</Button>
+                            <Button 
+                            style={{
+                              padding:'10px',
+                              margin:'5px',
+                              borderRadius:"30px",
+                              backgroundColor:"grey",
+          
+                            }}
+                            variant="contained" 
+                            align="right"
+                            onClick={handleClickOpenCancel}
+                            >Cancel</Button>
+
+                            <Dialog
+                              open={openCancel}
+                              onClose={handleCloseCancel}
+                              aria-labelledby="alert-dialog-title"
+                              aria-describedby="alert-dialog-description"
+                              >
+                              <DialogTitle id="alert-dialog-title">
+                                {"Confirm Cancellation"}
+                              </DialogTitle>
+                              <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                  WARNING: Cancelling your reservation will result in a charge fee of $50
+                                </DialogContentText>
+                              </DialogContent>
+                              <DialogActions>
+                                <Button onClick={handleCloseCancel}>Nevermind</Button>
+                                <Button onClick={handleCloseCancel} autoFocus>
+                                  Cancel Reservation
+                                </Button>
+                              </DialogActions>
+                            </Dialog>
+                          </div>
+                          
+
                           </div>
                         
->>>>>>> 924d0e92d3014a1b5ea74bc4d90cb2b8d75730c6
                         </TableCell>
 
                     </TableRow>

@@ -53,20 +53,19 @@
     margin-bottom:40px;
 }
    
-
-.reservation_top_right > h2{
-    margin-right:80px;
-}
-
-.reservation_top_right > p6{
+.reservation_top_right >p6{
     padding-top:40px;
-
 }
 
 /*added css for p2*/
 
 .reservation_top_right >p2{
-    font-size:small;
+    font-size:0.80vw;
+    font-family:cera-round-pro, "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+.reservation_top_right >h2 {
+    font-family:cera-round-pro, "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
 .reservation_page >p3 {

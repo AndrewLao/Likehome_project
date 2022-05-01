@@ -167,6 +167,9 @@ const Filters = (props) => {
             scale={(x) => x * 100}
             marks={marks}
             valueLabelFormat={(x) => "$" + x}
+            style={{
+              color:"rgba(0, 139, 139, 0.7)"
+            }}
           />
         </Box>
         {/* Price Filter End */}
@@ -195,6 +198,9 @@ const Filters = (props) => {
             step={0.1}
             marks={marks2}
             valueLabelFormat={(x) => "" + x}
+            style={{
+              color:"rgba(0, 139, 139, 0.7)"
+            }}
           />
         </Box>
         {/* Ratings Filter End */}

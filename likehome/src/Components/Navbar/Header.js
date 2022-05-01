@@ -128,12 +128,15 @@ function Header(props) {
         <div className="header__center">
           <input
             type="text"
-            placeholder="Begin your search here!"
+            placeholder= "Begin your search here!"
+            style={{
+              fontWeight:"bold"
+            }}
             value={search}
             onClick={() => setCalendarOpen(true)}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <SearchIcon />
+          <SearchIcon style={{backgroundColor:"rgba(0, 139, 139, 0.7)", color:"white", borderRadius:"30px", padding:"8px"}} />
         </div>
 
         <div className="header__right">
