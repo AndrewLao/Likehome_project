@@ -1,0 +1,17 @@
+.thankyou {
+    padding-top: 10%;
+    padding-bottom: 20%;
+    font-size: 3vh;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(6, 109, 109, 0.7);
+}
+
+.thankyou-text {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}

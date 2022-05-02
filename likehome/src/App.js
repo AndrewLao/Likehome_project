@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { getSession } from "./Backend/auth.js";
 import Axios from "axios";
 import StripeContainer from "./Components/PaymentForm/StripeContainer";
+import StripeContainerFee from "./Components/PaymentForm/StripeContainerFee"
 import ThankYou from "./Components/Pages/ThankYou";
 import config from "./config";
 
@@ -47,7 +48,8 @@ function App() {
     endDate: "",
     noOfGuests: 0,
   });
-
+  const [resId, setResID] = useState(-1);
+  const [isCancelForm, setCancelForm] = useState(false);
 
   // every time the page reloads run this
   // get whether or not the user is logged in or not
@@ -103,7 +105,7 @@ function App() {
           </Route>
 
           <Route path="/account">
-            <Account status={status} hotels={hotels} />
+            <Account status={status} hotels={hotels} resId={resId} setResID={setResID} setCancelForm={setCancelForm} />
           </Route>
 
           <Route path="/catalog">
@@ -118,6 +120,10 @@ function App() {
 
           <Route path="/payment-form">
             <StripeContainer reserveData={reserveData} getHotelID={getHotelID()} fname={status.fname} lname={status.lname} id={status.sub}/>
+          </Route>
+
+          <Route path="/cancel-form">
+            <StripeContainerFee resId={resId} fname={status.fname} lname={status.lname} id={status.sub} isCancelForm={isCancelForm} setCancelForm={setCancelForm}/>
           </Route>
 
           <Route path="/thank-you">

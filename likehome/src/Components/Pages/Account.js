@@ -20,6 +20,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import PersonIcon from "@mui/icons-material/Person";
 import { DateRange } from "react-date-range";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
 
 function Account(props) {
   let history = useHistory();
@@ -36,7 +40,7 @@ function Account(props) {
 
   useEffect(() => {
     isLoggedIn();
-  }, [props.status, uid]);
+  }, [props.status, uid, rows]);
 
   const isLoggedIn = async () => {
     getSession()
@@ -75,14 +79,15 @@ function Account(props) {
   const [endDate, setEndDate] = useState(new Date());
   const [noOfGuests, setNoOfGuests] = useState(1); // Default guests number is 1
 
+
   const handleSelect = (ranges) => {
     setStartDate(ranges.selection.startDate); //Updating local state of start date
     setEndDate(ranges.selection.endDate);
-    props.setRange({
-      startDate: ranges.selection.startDate,
-      endDate: ranges.selection.endDate,
-      guests: noOfGuests,
-    });
+    // props.setRange({
+    //   startDate: ranges.selection.startDate,
+    //   endDate: ranges.selection.endDate,
+    //   guests: noOfGuests,
+    // });
   };
 
   const handleGuests = (num) => {
@@ -103,7 +108,8 @@ function Account(props) {
 
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (resID) => {
+    props.setResID(resID);
     setOpen(true);
   };
 
@@ -111,16 +117,44 @@ function Account(props) {
     setOpen(false);
   };
 
+  const handleSubmit = async (reserveid) => {
+    let isReserved = await Axios.get(`${config.apiUrl}/multiple-reservation-check-account`, {
+      params: { id: uid, startDate:startDate, endDate: endDate, reserveid: reserveid }})
+      .then((res) => {
+      return (res.data.length > 0);
+    }
+    , []);
+    if (!isReserved) {
+      Axios.put(`${config.apiUrl}/update-reservation`, {
+        params: {reserveDateStart: startDate, reserveDateEnd: endDate, reserveid: reserveid},
+      }).then((res) => {
+        handleClose();
+      });
+    } else {
+      toast.error("Is already a reserved date");
+      
+    }
+    
+    
+  }
+
   //variables for cancel button
   const [openCancel, setOpenCancel] = React.useState(false);
 
-  const handleClickOpenCancel = () => {
+  const handleClickOpenCancel = (resID) => {
+    props.setResID(resID)
     setOpenCancel(true);
   };
 
   const handleCloseCancel = () => {
     setOpenCancel(false);
   };
+
+  const handleCancelSubmit = (reserveid) => {
+    handleCloseCancel();
+    props.setCancelForm(true);
+    history.push("./cancel-form");
+  }
 
   return (
     <div>
@@ -203,7 +237,7 @@ function Account(props) {
                           
                                 variant="contained"
                                 align="right"
-                                onClick={handleClickOpen}>
+                                onClick={() => handleClickOpen(row.reserveid)}>
                                   Change
                               </Button>
                             </div>
@@ -237,11 +271,12 @@ function Account(props) {
                                       Cancel
                                     </Button>
                                     <Button
+                                      
                                       variant="contained"
                                       className="calendar__buttons"
-                                      onClick={handleClose}
+                                      onClick={() => handleSubmit(props.resId)}
                                     >
-                                      Confirm
+                                      Confirm 
                                     </Button>
                                   </div>
 
@@ -259,7 +294,7 @@ function Account(props) {
                             }}
                             variant="contained" 
                             align="right"
-                            onClick={handleClickOpenCancel}
+                            onClick={() => handleClickOpenCancel(row.reserveid)}
                             >Cancel</Button>
 
                             <Dialog
@@ -278,7 +313,7 @@ function Account(props) {
                               </DialogContent>
                               <DialogActions>
                                 <Button onClick={handleCloseCancel}>Nevermind</Button>
-                                <Button onClick={handleCloseCancel} autoFocus>
+                                <Button onClick={() => {handleCancelSubmit(props.resId)}} autoFocus>
                                   Cancel Reservation
                                 </Button>
                               </DialogActions>

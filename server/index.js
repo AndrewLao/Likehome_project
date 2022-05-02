@@ -111,6 +111,28 @@ app.get("/multiple-reservation-check", (req, res) => {
   );
 });
 
+// check for multiple reservations under the same date
+app.get("/multiple-reservation-check-account", (req, res) => {
+  
+  let start = req.query.startDate.substring(0,10);
+  let end = req.query.endDate.substring(0,10);
+  const query = "SELECT * FROM Reservations where reserveid != " + req.query.reserveid + " AND userid='" + req.query.id + "' AND (('" + 
+  start + "' < reserveDateStart and '" + end + 
+  "' >reserveDateStart) OR ('" + start + "' >= reserveDateStart and '" + start + "'< reserveDateEnd))"; 
+     //if start date is between reservation start AND end date is after reserve start, conflict
+     //if startdate is == or > reserve start date AND it is before the reserve end date, between conflict.
+  //((startDate < reserveStartDate AND endDate > reserveStartDate) OR (startDate >= reserveStartDate AND startDate < reserveEndDate))
+  db.query(query, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+        console.log(result); 
+      }
+    }
+  );
+});
+
 // get all reservations for user id
 app.get("/get-reservations", (req, res) => {
   const query =
@@ -152,10 +174,24 @@ app.get("/get-hotels-filtered", (req, res) => {
 app.put("/update-reservation", (req, res) => {
   const startDate = req.body.params.reserveDateStart.substring(0,10);
   const endDate = req.body.params.reserveDateEnd.substring(0,10);
-  const reserveid = req.body.params.reserverid;
+  const reserveid = req.body.params.reserveid;
   const sqlUpdate = "UPDATE reservations SET reserveDateStart=DATE '" + startDate + "', reserveDateEnd='" + endDate + "' WHERE reserveid=" + reserveid; 
   db.query(
     sqlUpdate, (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(results);
+      }
+    }
+  );
+});
+
+// delete reservation
+app.delete("/delete-reservation", (req, res) => {
+  const sqlDelete = "DELETE FROM reservations where reserveid=" + req.query.reserveid;
+  db.query(
+    sqlDelete, (err, results) => {
       if (err) {
         console.log(err);
       } else {

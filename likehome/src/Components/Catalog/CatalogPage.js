@@ -13,7 +13,7 @@ function CatalogPage(props) {
           {props.range.startDate.toLocaleDateString() +
             " to " +
             props.range.endDate.toLocaleDateString()}{" "}
-          · {props.range.guests} Guests 😀
+          · {props.range.guests} Guests
         </p>
         <h1>Stays nearby</h1>
       </div>

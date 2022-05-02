@@ -6,7 +6,10 @@ import { useHistory } from 'react-router-dom';
 import "./CheckoutForm.css";
 import { getSession } from "../../Backend/auth.js";
 import Axios from "axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+toast.configure();
 const fields = [
     {
         name: 'name',
@@ -63,21 +66,20 @@ const CheckoutForm = (props) => {
       //`Elements` instance that was used to create the Payment Element
       elements,
       redirect: "if_required" //makes it so that return_url is not required
-    })
+    });
+
     if (result.error) {
       console.log(result.error.message);
     } else { 
       Axios.post(`${config.apiUrl}/create-reservation`, {
           params: { userid: user.id, hotelid: props.hid, reserveDateStart: props.reserveData.startDate, 
             reserveDateEnd: props.reserveData.endDate, guests: props.reserveData.noOfGuests, total: props.price, fee: 50},
-        }).then((res) => {
-          Axios.put(`${config.apiUrl}/point-add`, {
-            params: {userid: user.id, points: props.price},
-          }).then((res) => {
-            console.log("payment successful")
-            history.push('/thank-you');
-          });
-        });
+        })
+      Axios.put(`${config.apiUrl}/point-add`, {
+        params: {userid: user.id, points: props.price},
+      });
+      console.log("payment successful");
+      history.push('./thank-you');
     }
   }
 
@@ -86,20 +88,16 @@ const CheckoutForm = (props) => {
     if (user.points >= props.price) {
       Axios.put(`${config.apiUrl}/point-payment`, {
         params: {userid: user.id, points: props.price},
-      }).then((res) => {
-        console.log("payment successful")
-        history.push('/thank-you');
-      });
+      })
       //After subtracting points, make a post request to create reservation
       Axios.post(`${config.apiUrl}/create-reservation`, {
         params: { userid: user.id, hotelid: props.hid, reserveDateStart: props.reserveData.startDate, 
           reserveDateEnd: props.reserveData.endDate, guests: props.reserveData.noOfGuests, total: props.price, fee: 50},
-      }).then((res) => {
-        console.log("payment successful")
-        history.push('/thank-you');
-      });
+      })
+      console.log("payment successful");
+      history.push('./thank-you');
     } else {
-      console.log("not enough points");
+      toast.error("not enough points");
     }
     
     
