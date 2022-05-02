@@ -1,7 +1,7 @@
 # Likehome_project
 Hotel lister website school project for spring 2022 semester (Work in progress)
 # Tools
-Built with ReactJS, Material UI, and AWS backend, MySQL, and ExpressJS
+Built with ReactJS, Material UI, AWS, Stripe, MySQL, and ExpressJS
 # How to Run on Local Server
 
 Requires Node 16 or later and MySQL version 8.0.16 or later
