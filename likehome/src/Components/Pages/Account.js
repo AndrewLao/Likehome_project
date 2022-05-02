@@ -200,11 +200,11 @@ function Account(props) {
                 <TableHead>
                   <TableRow>
                     <TableCell>Date</TableCell>
-                    <TableCell align="right">Reservation ID</TableCell>
-                    <TableCell align="right">Hotel</TableCell>
-                    <TableCell align="right">Guests</TableCell>
-                    <TableCell align="right">Total&nbsp;($)</TableCell>
-                    <TableCell align="right"></TableCell>
+                    <TableCell align="left">Reservation ID</TableCell>
+                    <TableCell align="left">Hotel</TableCell>
+                    <TableCell align="left">Guests</TableCell>
+                    <TableCell align="left">Total&nbsp;($)</TableCell>
+                    <TableCell align="left"></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -218,21 +218,19 @@ function Account(props) {
                           " - " +
                           row.reserveDateEnd.substring(0, 10)}
                       </TableCell>
-                      <TableCell align="right">{row.reserveid}</TableCell>
-                      <TableCell align="right">{props.hotels.find((e) => e.id === row.hotelid).hotelname}</TableCell>
-                      <TableCell align="right">{row.guests}</TableCell>
-                      <TableCell align="right">{row.totalprice}</TableCell>
-                      <TableCell align="right" sx={{display:'flex'}}>
-                          <div className="account_buttons">
-
+                      <TableCell align="left">{row.reserveid}</TableCell>
+                      <TableCell align="left">{props.hotels.find((e) => e.id === row.hotelid).hotelname}</TableCell>
+                      <TableCell align="left">{row.guests}</TableCell>
+                      <TableCell align="left">${row.totalprice}.00</TableCell>
+                      <TableCell align="left" style={{width:10}}>
+                          <div className="account__buttons">
                             <div>
                               <Button
                                 style={{
                                   padding:'10px',
                                   margin:'5px',
                                   borderRadius:"30px",
-                                  backgroundColor:"rgba(0, 139, 139, 0.7)",
-                                  
+                                  backgroundColor:"rgba(0, 139, 139, 0.7)", 
                                 }}
                           
                                 variant="contained"
@@ -266,14 +264,27 @@ function Account(props) {
                                     <Button
                                       variant="outlined"
                                       className="calendar__buttons"
+                                      style={{
+                                        padding:'10px',
+                                        margin:'5px',
+                                        borderRadius:"30px",
+                                        color:"white",
+                                        backgroundColor:"grey",
+                                        borderColor:"grey",
+                                      }}
                                       onClick={handleClose}
                                     >
                                       Cancel
                                     </Button>
                                     <Button
-                                      
                                       variant="contained"
                                       className="calendar__buttons"
+                                      style={{
+                                        padding:'10px',
+                                        margin:'5px',
+                                        borderRadius:"30px",
+                                        backgroundColor:"rgba(0, 139, 139, 0.7)",
+                                      }}
                                       onClick={() => handleSubmit(props.resId)}
                                     >
                                       Confirm 
@@ -283,43 +294,43 @@ function Account(props) {
                               </DialogContent>
                             </Dialog>
 
-                          <div>
-                            <Button 
-                            style={{
-                              padding:'10px',
-                              margin:'5px',
-                              borderRadius:"30px",
-                              backgroundColor:"grey",
-          
-                            }}
-                            variant="contained" 
-                            align="right"
-                            onClick={() => handleClickOpenCancel(row.reserveid)}
-                            >Cancel</Button>
+                            <div>
+                              <Button 
+                              style={{
+                                padding:'10px',
+                                margin:'5px',
+                                borderRadius:"30px",
+                                backgroundColor:"grey",
+            
+                              }}
+                              variant="contained" 
+                              align="right"
+                              onClick={() => handleClickOpenCancel(row.reserveid)}
+                              >Cancel</Button>
 
-                            <Dialog
-                              open={openCancel}
-                              onClose={handleCloseCancel}
-                              aria-labelledby="alert-dialog-title"
-                              aria-describedby="alert-dialog-description"
-                              >
-                              <DialogTitle id="alert-dialog-title">
-                                {"Confirm Cancellation"}
-                              </DialogTitle>
-                              <DialogContent>
-                                <DialogContentText id="alert-dialog-description">
-                                  WARNING: Cancelling your reservation will result in a charge fee of $50
-                                </DialogContentText>
-                              </DialogContent>
-                              <DialogActions>
-                                <Button onClick={handleCloseCancel}>Nevermind</Button>
-                                <Button onClick={() => {handleCancelSubmit(props.resId)}} autoFocus>
-                                  Cancel Reservation
-                                </Button>
-                              </DialogActions>
-                            </Dialog>
-                          </div>
-                          
+                              <Dialog
+                                open={openCancel}
+                                onClose={handleCloseCancel}
+                                aria-labelledby="alert-dialog-title"
+                                aria-describedby="alert-dialog-description"
+                                >
+                                <DialogTitle id="alert-dialog-title">
+                                  {"Confirm Cancellation"}
+                                </DialogTitle>
+                                <DialogContent>
+                                  <DialogContentText id="alert-dialog-description">
+                                    WARNING: Cancelling your reservation will result in a charge fee of $50
+                                  </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                  <Button onClick={handleCloseCancel}>Nevermind</Button>
+                                  <Button onClick={() => {handleCancelSubmit(props.resId)}} autoFocus>
+                                    Cancel Reservation
+                                  </Button>
+                                </DialogActions>
+                              </Dialog>
+                            </div>
+
 
                           </div>
                         

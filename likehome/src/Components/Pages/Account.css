@@ -35,34 +35,37 @@ h3 {
 h4 {
     padding-top: 1%;
 }
+  
+.account__guests {
+  display: flex;
+  align-items: center;
+  border-bottom: 1;
+  border-bottom-width: 10px;
+  border-bottom-color: black;
+  margin-bottom: 20px;
+}
+.account__calendarGuests {
+  flex-grow: 1;
+  font: bold;
+}
 
-  
-  .account__guests {
-    display: flex;
-    align-items: center;
-    border-bottom: 1;
-    border-bottom-width: 10px;
-    border-bottom-color: black;
-    margin-bottom: 20px;
-  }
-  .account__calendarGuests {
-    flex-grow: 1;
-    font: bold;
-  }
-  
-  .guest__selector {
-    width: 40px;
-    padding-left: 2px;
-    font-size: large;
-    outline: none;
-  }
-  
-  .button__box{
-    display: flex;
-    margin-bottom: 20px;
-  }
-  
-  .calendar__buttons{
-    flex-grow: 1;
-  
-  }
+.guest__selector {
+  width: 40px;
+  padding-left: 2px;
+  font-size: large;
+  outline: none;
+}
+
+.button__box{
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.calendar__buttons{
+  flex-grow: 1;
+
+}
+
+.account__buttons{
+display:flex;
+}

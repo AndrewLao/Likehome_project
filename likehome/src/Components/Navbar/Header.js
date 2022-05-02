@@ -143,7 +143,7 @@ function Header(props) {
           {props.status.status ? (
             <>
               <IconButton size="small" onClick={handleLogout}>
-                <p>Logout</p>
+                <p>Log out</p>
               </IconButton>
             </>
           ) : (
@@ -201,6 +201,14 @@ function Header(props) {
               <Button
                 variant="outlined"
                 className="calendar__buttons"
+                style={{
+                  padding:'10px',
+                  margin:'5px',
+                  borderRadius:"30px",
+                  color:"white",
+                  backgroundColor:"grey",
+                  borderColor:"grey",
+                }}
                 onClick={resetInput}
               >
                 Cancel
@@ -208,6 +216,12 @@ function Header(props) {
               <Button
                 variant="contained"
                 className="calendar__buttons"
+                style={{
+                  padding:'10px',
+                  margin:'5px',
+                  borderRadius:"30px",
+                  backgroundColor:"rgba(0, 139, 139, 0.7)",
+                }}
                 onClick={searching}
               >
                 Search
