@@ -1,5 +1,5 @@
 # Likehome_project
-Hotel lister website school project for spring 2022 semester (Work in progress)
+Hotel lister website school project for spring 2022 semester
 # Tools
 Built with ReactJS, Material UI, AWS, Stripe, MySQL, and ExpressJS
 # How to Run on Local Server
